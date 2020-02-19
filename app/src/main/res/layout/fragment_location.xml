@@ -22,40 +22,28 @@
                 <LinearLayout
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="200dp"
+                    android:background="@drawable/world_map"
+                    android:gravity="center">
 
-                    <androidx.cardview.widget.CardView
+                    <TextView
+                        android:id="@+id/bigTaxt"
                         android:layout_width="match_parent"
+                        android:textAlignment="center"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="5dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/background_gradientsky"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:textAlignment="center"
-                                android:layout_width="0dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="2"
-                                android:fontFamily="@font/roboto_bold"
-                                android:padding="5dp"
-                                android:textAllCaps="false"
-                                android:text="You Location Information"
-                                android:textSize="16sp"
-                                android:textColor="@android:color/white"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="CITY"
+                        android:textAllCaps="true"
+                        android:textColor="#000000"
+                        android:textSize="50dp" />
 
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#b2bec3"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,17 +54,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_marginRight="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/background_gradian"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/address"
+                                android:textAlignment="center"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
@@ -84,7 +71,6 @@
                                 android:padding="5dp"
                                 android:text=""
                                 android:textSize="16sp"
-                                android:textColor="@android:color/white"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -102,13 +88,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_marginRight="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@drawable/background_gradian"
                             android:orientation="horizontal">
 
                             <TextView
@@ -118,19 +102,20 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
+                                android:textColor="#000000"
                                 android:text="City"
-                                android:textColor="@android:color/white"
                                 android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/city"
-                                android:layout_margin="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
                                 android:layout_width="0dp"
                                 android:layout_height="40dp"
                                 android:layout_weight="2"
                                 android:fontFamily="@font/roboto_bold"
                                 android:text=""
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -149,13 +134,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_marginRight="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@drawable/background_gradian"
                             android:orientation="horizontal">
 
                             <TextView
@@ -166,7 +149,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Postal Code"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -178,7 +161,7 @@
                                 android:padding="5dp"
                                 android:text=""
                                 android:layout_margin="5dp"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -197,13 +180,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_marginRight="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@drawable/background_gradian"
                             android:orientation="horizontal">
 
                             <TextView
@@ -214,7 +195,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Division"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -227,7 +208,7 @@
                                 android:text=""
                                 android:layout_margin="5dp"
                                 android:textSize="16sp"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -245,35 +226,35 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_marginRight="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@drawable/background_gradian"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
-                                android:layout_weight="1."
+                                android:layout_weight="1"
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Country"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewCountry"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginLeft="5dp"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:fontFamily="@font/roboto_bold"
                                 android:padding="5dp"
                                 android:text=""
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -292,37 +273,35 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_marginRight="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@drawable/background_gradian"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
-                                android:layout_weight="1.2"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Country Code"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewCountryCode"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1.8"
+                                android:layout_weight="2"
                                 android:fontFamily="@font/roboto_bold"
                                 android:padding="5dp"
                                 android:text=""
                                 android:layout_margin="5dp"
                                 android:textSize="16sp"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -340,13 +319,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_marginRight="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@drawable/background_gradian"
                             android:orientation="horizontal">
 
                             <TextView
@@ -357,7 +334,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Latitude"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -369,7 +346,7 @@
                                 android:padding="5dp"
                                 android:text=""
                                 android:layout_margin="5dp"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -388,14 +365,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:elevation="5dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_marginRight="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@drawable/background_gradian"
                             android:orientation="horizontal">
 
                             <TextView
@@ -406,7 +380,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Longitude"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -418,7 +392,7 @@
                                 android:padding="5dp"
                                 android:text=""
                                 android:layout_margin="5dp"
-                                android:textColor="@android:color/white"
+                                android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
