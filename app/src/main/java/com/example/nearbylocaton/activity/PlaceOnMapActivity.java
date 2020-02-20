@@ -223,7 +223,7 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
         String sensor = "sensor=false";
 
         // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&key=" + this.getResources().getString(R.string.google_maps_key);
+        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&key=" + this.getResources().getString(R.string.map_direction_polyLine_api_key);
 
         // Output format
         String output = "json";

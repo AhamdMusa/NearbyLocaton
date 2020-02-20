@@ -2,6 +2,7 @@
     <string name="app_name">Search Nearby</string>
     <string name="title_activity_maps">Map</string>
     <string name="MY_API_KEY">AIzaSyB9MxxJBmzLHdfsMEZSdV0vORR_MRwirPI</string>
+    <string name="map_direction_polyLine_api_key">AIzaSyBg8i0hgKB-G08vlQtuGyjlns1RfwzDzoE</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
