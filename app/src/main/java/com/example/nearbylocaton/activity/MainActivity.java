@@ -2,6 +2,8 @@ package com.example.nearbylocaton.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
@@ -12,12 +14,17 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.nearbylocaton.R;
+import com.example.nearbylocaton.adapter.DataPass;
 import com.example.nearbylocaton.adapter.TabPagerAdapter;
+import com.example.nearbylocaton.fragments.LocationRV;
+import com.example.nearbylocaton.interfaces.work;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements work {
     public TabLayout tabLayout;
     public ViewPager viewPager;
+    private FragmentManager fm;
+    private FragmentTransaction ft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,5 +73,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+    @Override
+    public void dataPass(DataPass dataPass) {
+        fm=getSupportFragmentManager();
+        ft=fm.beginTransaction();
+        LocationRV locationRV=new LocationRV();
+        ft.replace(R.id.mainFrame,locationRV);
+        ft.commit();
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("data",dataPass);
+        locationRV.setArguments(bundle);
+
     }
 }
