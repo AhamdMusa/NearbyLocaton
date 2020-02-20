@@ -51,6 +51,7 @@ public class LocationFragment extends Fragment {
 
     ProgressDialog progressDialog;
     private TextView textViewAddress;
+    private TextView textViewBigText;
     private TextView textViewCity;
     private TextView textViewPostalCode;
     private TextView textViewLongitude;
@@ -81,6 +82,7 @@ public class LocationFragment extends Fragment {
         textViewDivision = view.findViewById(R.id.textViewDivision);
         textViewPostalCode = view.findViewById(R.id.postalCode);
         linearLayoutViewMe = view.findViewById(R.id.linearLayoutViewMe);
+        textViewBigText = view.findViewById(R.id.bigTaxt);
 
 
         locationService();
@@ -218,6 +220,8 @@ public class LocationFragment extends Fragment {
                 textViewDivision.setText(division);
                 textViewPostalCode.setText(postalCode);
                 textViewCity.setText(city);
+                textViewBigText.setText(city);   //-----------MUSA-------------------------------/
+
 
                 //Toast.makeText(getContext(), , Toast.LENGTH_SHORT).show();
                 Log.d("LocationFragment", addresses.get(0).toString());
