@@ -18,9 +18,9 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-               return new LocationFragment();
+                return new LocationFragment();
             case 1:
-               return new NearByFragment();
+                return new NearByFragment();
         }
         return null;
     }

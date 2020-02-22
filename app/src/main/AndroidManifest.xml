@@ -23,6 +23,7 @@
         <activity android:name=".activity.ShowPlacesOnMapActivity" />
         <activity android:name=".activity.PlaceOnMapActivity" />
         <activity android:name=".activity.PlaceDetailsActivity" />
+        <activity android:name=".activity.LocationRV" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

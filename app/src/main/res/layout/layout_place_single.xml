@@ -9,17 +9,14 @@
         android:id="@+id/singleItemView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="3dp"
         app:cardCornerRadius="1dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
 
             <LinearLayout
                 android:layout_width="50dp"
@@ -28,11 +25,12 @@
                 android:gravity="center">
 
                 <ImageView
+                    android:background="#ffffff"
                     android:id="@+id/placeImageView"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:padding="5dp"
+                    android:transitionName="imageTRMap"
                     android:src="@drawable/world" />
 
             </LinearLayout>
@@ -49,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:transitionName="textTRMap"
                     android:text="Place Name"
                     android:textSize="16sp" />
 
@@ -72,5 +71,11 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#b2bec3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
 </LinearLayout>
