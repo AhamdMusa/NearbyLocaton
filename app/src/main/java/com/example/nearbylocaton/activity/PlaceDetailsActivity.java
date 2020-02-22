@@ -70,7 +70,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             Picasso
                     .get()
-                    .load(R.drawable.alert)
+                    .load(R.drawable.moon)
                     .into(imageView);
         }
 

@@ -48,6 +48,8 @@ public class NearByFragment extends Fragment {
     private TypeAdapter productAdapter;
     private CardView singleItemView;
     private MainActivity mainActivity;
+    double lat;
+    double lng;
 
 
     @Nullable
@@ -58,6 +60,11 @@ public class NearByFragment extends Fragment {
         spinner_nearby_choices = view.findViewById(R.id.spinner_nearby_choices);
         singleItemView = view.findViewById(R.id.singleItemView);
         productRV = view.findViewById(R.id.nearbymeRV);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            lat = bundle.getDouble("lat");
+            lng= bundle.getDouble("lng");
+        }
 
         init();
 
@@ -77,6 +84,8 @@ public class NearByFragment extends Fragment {
                     intent.putExtra("placeName",placeName);
                     Bundle bundle=new Bundle();
                     bundle.putInt("icon",R.drawable.search);
+                    bundle.putDouble("lat",lat);
+                    bundle.putDouble("lng",lng);
                     intent.putExtras(bundle);
                     startActivity(intent);
 

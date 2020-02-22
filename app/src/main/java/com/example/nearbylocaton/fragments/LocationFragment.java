@@ -140,6 +140,11 @@ public class LocationFragment extends Fragment {
                         lng = location.getLongitude();
                         textViewLatitude.setText(String.valueOf(lat));
                         textViewLongitude.setText(String.valueOf(lng));
+                        NearByFragment fragment = new NearByFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putDouble("lat", lat);
+                        bundle.putDouble("lng", lng);
+                        fragment.setArguments(bundle);
 
                         getAddress();
 
@@ -221,6 +226,7 @@ public class LocationFragment extends Fragment {
                 textViewPostalCode.setText(postalCode);
                 textViewCity.setText(city);
                 textViewBigText.setText(city);   //-----------MUSA-------------------------------/
+
 
 
                 //Toast.makeText(getContext(), , Toast.LENGTH_SHORT).show();

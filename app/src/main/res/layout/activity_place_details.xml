@@ -209,35 +209,31 @@
 
                         <LinearLayout
                             android:id="@+id/linearLayoutShowOnMap"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
                             <ImageView
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
-                                android:src="@drawable/location"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Show Map"
-                                android:layout_marginTop="10dp"
-                                android:textColor="#000"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
+                                android:src="@drawable/world"/>
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/lightGrayLine"
-                                android:layout_marginTop="10dp"/>
-                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:background="@color/lightGrayLine"/>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="View your location on map"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@color/darkgray"/>
-
+                                android:gravity="center_vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Show in Map"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
 
 
@@ -250,37 +246,31 @@
 
                         <LinearLayout
                             android:id="@+id/linearLayoutShowDistanceOnMap"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
                             android:gravity="center"
-                            android:orientation="vertical">
-
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
                             <ImageView
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
-                                android:src="@drawable/compass" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Direction"
-                                android:layout_marginTop="10dp"
-                                android:textColor="#000"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
+                                android:src="@drawable/road"/>
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/lightGrayLine"
-                                android:layout_marginTop="10dp"/>
-                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:background="@color/lightGrayLine"/>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="View direction on map"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@color/darkgray"/>
-
+                                android:gravity="center_vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Direction"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
 
 
