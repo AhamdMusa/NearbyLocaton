@@ -72,8 +72,8 @@ public class LocationRV extends AppCompatActivity {
     LocationManager lm;
     LocationManager locationManager;
 
-    double lat ;
-    double lng ;
+    double lat=23.7521850724 ;
+    double lng=90.3925169004;
     private String placeType = "";
     private GoogleApiService googleApiService;
     private MyPlaces myPlaces;
@@ -119,7 +119,7 @@ public class LocationRV extends AppCompatActivity {
 
 
 
-  /* private void locationService() {
+  private void locationService() {
 
         lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -177,11 +177,11 @@ public class LocationRV extends AppCompatActivity {
         } else {
             Toast.makeText(LocationRV.this, "GPS off", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
 
 
-  /*  public class MyLocationListener implements LocationListener {
+   public class MyLocationListener implements LocationListener {
 
         @Override
         public void onLocationChanged(Location loc) {
@@ -204,7 +204,7 @@ public class LocationRV extends AppCompatActivity {
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
-    }*/
+    }
 
     private String buildUrl(double latitude, double longitude, String API_KEY) {
         StringBuilder urlString = new StringBuilder("api/place/search/json?");
