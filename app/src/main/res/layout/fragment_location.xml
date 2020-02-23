@@ -29,10 +29,10 @@
                     <TextView
                         android:id="@+id/bigTaxt"
                         android:layout_width="match_parent"
-                        android:textAlignment="center"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-condensed-medium"
+                        android:fontFamily="@font/bitter"
                         android:text="CITY"
+                        android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="#000000"
                         android:textSize="50dp" />
@@ -100,7 +100,6 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
-                                android:textColor="#000000"
                                 android:text="City"
                                 android:textSize="16sp" />
 
@@ -113,7 +112,6 @@
                                 android:layout_weight="2"
                                 android:fontFamily="@font/roboto_bold"
                                 android:text=""
-                                android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -146,7 +144,6 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Postal Code"
-                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -158,7 +155,6 @@
                                 android:padding="5dp"
                                 android:text=""
                                 android:layout_margin="5dp"
-                                android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -191,7 +187,6 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Division"
-                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -204,7 +199,6 @@
                                 android:text=""
                                 android:layout_margin="5dp"
                                 android:textSize="16sp"
-                                android:textColor="#000000"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -236,7 +230,6 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Country"
-                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -249,7 +242,6 @@
                                 android:fontFamily="@font/roboto_bold"
                                 android:padding="5dp"
                                 android:text=""
-                                android:textColor="#000000"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -282,7 +274,6 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Country Code"
-                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -295,7 +286,6 @@
                                 android:text=""
                                 android:layout_margin="5dp"
                                 android:textSize="16sp"
-                                android:textColor="#000000"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -327,7 +317,6 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Latitude"
-                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -339,7 +328,6 @@
                                 android:padding="5dp"
                                 android:text=""
                                 android:layout_margin="5dp"
-                                android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -372,7 +360,6 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:padding="5dp"
                                 android:text="Longitude"
-                                android:textColor="#000000"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -384,7 +371,6 @@
                                 android:padding="5dp"
                                 android:text=""
                                 android:layout_margin="5dp"
-                                android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -396,79 +382,53 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayoutViewMe"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="160dp"
-                    android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:id="@+id/linearLayoutViewMe"
+                        android:orientation="horizontal"
+                        android:layout_margin="10dp"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                         <ImageView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:src="@drawable/location"/>
+                            android:src="@drawable/location_world"/>
+                        <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/lightGrayLine"
+                        android:layout_marginLeft="13dp"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="center_vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Show Map"
-                            android:layout_marginTop="10dp"
-                            android:textColor="#000"
+                            android:text="Show Me in Map"
                             android:textSize="15sp"
                             android:textStyle="bold" />
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/lightGrayLine"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="View your location on map"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:textColor="@color/darkgray"/>
+                        </LinearLayout>
+
+
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
+
 
         </LinearLayout>
 
 
     </ScrollView>
-  <!--  <LinearLayout
-        android:id="@+id/linearLayoutShowOnMap"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/background_gradientsky"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="View Map"
-            android:textColor="#fff"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>-->
 
 </LinearLayout>

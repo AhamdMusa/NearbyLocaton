@@ -9,20 +9,21 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.adapter.DataPass;
 import com.example.nearbylocaton.adapter.TabPagerAdapter;
-import com.example.nearbylocaton.fragments.LocationRV;
-import com.example.nearbylocaton.interfaces.work;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity implements work {
+public class MainActivity extends AppCompatActivity {
     public TabLayout tabLayout;
     public ViewPager viewPager;
+    private FrameLayout frameLayout;
     private FragmentManager fm;
     private FragmentTransaction ft;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements work {
 
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewpager);
+        frameLayout= findViewById(R.id.mainFrame);
 
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager()));
 
@@ -46,8 +48,13 @@ public class MainActivity extends AppCompatActivity implements work {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
+        init();
+
 
     }
+
+    private void init() {}
+
 
     private void checkPermission() {
         int PERMISSION_ALL = 1;
@@ -74,16 +81,10 @@ public class MainActivity extends AppCompatActivity implements work {
         }
         return true;
     }
-    @Override
-    public void dataPass(DataPass dataPass) {
-        fm=getSupportFragmentManager();
-        ft=fm.beginTransaction();
-        LocationRV locationRV=new LocationRV();
-        ft.replace(R.id.mainFrame,locationRV);
-        ft.commit();
-        Bundle bundle=new Bundle();
-        bundle.putSerializable("data",dataPass);
-        locationRV.setArguments(bundle);
 
-    }
+
+
+
+
 }
+

@@ -1,8 +1,8 @@
-package com.example.nearbylocaton.fragments;
+package com.example.nearbylocaton.activity;
 
 import android.Manifest;
-
-
+import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,48 +10,61 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import com.example.nearbylocaton.R;
-import com.example.nearbylocaton.activity.ShowPlacesOnMapActivity;
-import com.example.nearbylocaton.adapter.DataPass;
 import com.example.nearbylocaton.adapter.PlaceRecyclerViewAdapter;
-
 import com.example.nearbylocaton.constants.PlacesConstant;
 import com.example.nearbylocaton.models.MyPlaces;
 import com.example.nearbylocaton.webApi.GoogleApiService;
 import com.example.nearbylocaton.webApi.RetrofitBuilder;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+public class LocationRV extends AppCompatActivity {
 
-public class LocationRV extends Fragment {
 
+    private static LocationRV instance;
+    public static LocationRV getInstance() {
+        return instance;
+    }
+    private ImageView icon;
+    private TextView itemName;
+    private int iconint;
     private RecyclerView recyclerViewPlaces;
+    private LocationRequest locationRequest;
+    private LatLng myLocation;
     double latitude;
     double longitude;
+    private PlaceRecyclerViewAdapter placeRecyclerViewAdapter;
+    private CardView linearLayoutShowOnMap;
 
     ProgressDialog progressDialog;
 
@@ -59,58 +72,71 @@ public class LocationRV extends Fragment {
     LocationManager lm;
     LocationManager locationManager;
 
-    double lat = 0;
-    double lng = 0;
+    double lat=23.7521850724 ;
+    double lng=90.3925169004;
     private String placeType = "";
     private GoogleApiService googleApiService;
     private MyPlaces myPlaces;
-    private LinearLayout linearLayoutShowOnMap;
 
 
-
-    public LocationRV() {
-        // Required empty public constructor
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_location_rv);
+
+        instance=this;
+        icon=findViewById(R.id.imageView2);
+        itemName=findViewById(R.id.textView);
+        recyclerViewPlaces=findViewById(R.id.recyclerViewPlaces);
+        linearLayoutShowOnMap = findViewById(R.id.linearLayoutShowOnMap);
+        Intent intent=getIntent();
+        placeType=intent.getStringExtra("placeName");
+        Bundle bundle=this.getIntent().getExtras();
+        lat=bundle.getDouble("lat");
+        lng=bundle.getDouble("lng");
+        iconint=bundle.getInt("icon");
+
+        icon.setImageResource(iconint);
+        itemName.setText(placeType+"s");
+        // Toast.makeText(this, ""+placeType, Toast.LENGTH_SHORT).show();
+        //locationService();
+        getNearbyPlaces();
 
 
-        View locationRVView=inflater.inflate(R.layout.fragment_location_rv, container, false);
-        recyclerViewPlaces =locationRVView.findViewById(R.id.recyclerViewPlaces);
-        linearLayoutShowOnMap = locationRVView.findViewById(R.id.linearLayoutShowOnMap);
-        locationService();
 
         linearLayoutShowOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PlacesConstant.results = myPlaces.getResults();
-                Intent intent = new Intent(getContext(), ShowPlacesOnMapActivity.class);
+                Intent intent = new Intent(LocationRV.this, ShowPlacesOnMapActivity.class);
                 startActivity(intent);
             }
         });
 
-        return locationRVView;
     }
-    private void locationService() {
 
-        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+
+
+  private void locationService() {
+
+        lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
-            progressDialog = new ProgressDialog(getContext());
+            progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Please wait while fetching data from GPS .......");
             progressDialog.setCancelable(false);
             progressDialog.show();
 
 
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
             final LocationListener locationListener = new LocationRV.MyLocationListener();
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 progressDialog.dismiss();
@@ -120,9 +146,9 @@ public class LocationRV extends Fragment {
 
             progressDialog.dismiss();
 
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
 
@@ -134,7 +160,8 @@ public class LocationRV extends Fragment {
                     } else {
                         if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
-                            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            if (ActivityCompat.checkSelfPermission(LocationRV.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(LocationRV.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
                                 return;
                             }
 
@@ -142,16 +169,19 @@ public class LocationRV extends Fragment {
                         } else if (lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
                             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, locationListener);
+
                         }
                     }
                 }
             });
         } else {
-            Toast.makeText(getContext(), "GPS off", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LocationRV.this, "GPS off", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private class MyLocationListener implements LocationListener {
+
+
+   public class MyLocationListener implements LocationListener {
 
         @Override
         public void onLocationChanged(Location loc) {
@@ -180,11 +210,11 @@ public class LocationRV extends Fragment {
         StringBuilder urlString = new StringBuilder("api/place/search/json?");
 
         urlString.append("&location=");
-        urlString.append(Double.toString(latitude));
+        urlString.append(latitude);
         urlString.append(",");
-        urlString.append(Double.toString(longitude));
-        urlString.append("&radius=5000"); // places between 5 kilometer
-        urlString.append("&types=" + placeType.toLowerCase());
+        urlString.append(longitude);
+        urlString.append("&radius=1000"); // places between 5 kilometer
+        urlString.append("&types=" + placeType.toLowerCase().replaceAll(" ", "_"));
         urlString.append("&sensor=false&key=" + API_KEY);
 
         return urlString.toString();
@@ -194,13 +224,13 @@ public class LocationRV extends Fragment {
 
         if (lat != 0 && lng != 0) {
 
-            final ProgressDialog dialog = new ProgressDialog(getContext());
+            /*final ProgressDialog dialog = new ProgressDialog(LocationRV.this);
             dialog.setMessage("Loading...");
             dialog.setCancelable(false);
             dialog.setIndeterminate(false);
-            dialog.show();
+            dialog.show();*/
 
-            String apiKey = getContext().getResources().getString(R.string.google_maps_key);
+            String apiKey = LocationRV.this.getResources().getString(R.string.google_maps_key);
             String url = buildUrl(lat, lng, apiKey);
             Log.d("finalUrl", url);
 
@@ -213,36 +243,27 @@ public class LocationRV extends Fragment {
                 public void onResponse(Call<MyPlaces> call, Response<MyPlaces> response) {
                     //Log.d("MyPlaces", response.body().toString());
                     myPlaces = response.body();
-                    Log.d("MyPlaces", myPlaces.getResults().get(0).toString());
+                    //  Log.d("MyPlaces", myPlaces.getResults().get(0).toString());
 
-                    dialog.dismiss();
-                    PlaceRecyclerViewAdapter adapter = new PlaceRecyclerViewAdapter(getContext(), myPlaces, lat, lng);
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    recyclerViewPlaces.setLayoutManager(layoutManager);
+                    // dialog.dismiss();
+
+                    placeRecyclerViewAdapter = new PlaceRecyclerViewAdapter(LocationRV.this, myPlaces, lat, lng);
+                    recyclerViewPlaces.setLayoutManager(new LinearLayoutManager(LocationRV.this));
                     recyclerViewPlaces.setItemAnimator(new DefaultItemAnimator());
-                    recyclerViewPlaces.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                    linearLayoutShowOnMap.setVisibility(View.VISIBLE);
+                    recyclerViewPlaces.setAdapter(placeRecyclerViewAdapter);
+                    placeRecyclerViewAdapter.notifyDataSetChanged();
+                    //linearLayoutShowOnMap.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onFailure(Call<MyPlaces> call, Throwable t) {
-                    dialog.dismiss();
-                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    //   dialog.dismiss();
+                    Toast.makeText(LocationRV.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        DataPass dataPass= (DataPass) getArguments().getSerializable("data");
-
-                placeType= String.valueOf(dataPass.getName());
-                getNearbyPlaces();
-
-
+        else Toast.makeText(this, "what", Toast.LENGTH_SHORT).show();
     }
 }
+
+

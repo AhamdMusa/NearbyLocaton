@@ -70,7 +70,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             Picasso
                     .get()
-                    .load(R.drawable.alert)
+                    .load(R.drawable.moon)
                     .into(imageView);
         }
 
@@ -121,7 +121,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         textViewName = findViewById(R.id.textViewName);
         textViewRating = findViewById(R.id.textViewRating);
         textViewAddress = findViewById(R.id.textViewAddress);
-        textViewAvailability = findViewById(R.id.textViewAvailability);
+        textViewAvailability = findViewById(R.id.addressTV);
         ratingBar = findViewById(R.id.ratingBar);
     }
 }

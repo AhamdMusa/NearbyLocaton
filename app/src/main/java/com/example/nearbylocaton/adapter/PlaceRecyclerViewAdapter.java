@@ -1,8 +1,12 @@
 package com.example.nearbylocaton.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,17 +53,22 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Results results = myPlaces.getResults().get(position);
         holder.bind(results);
         holder.singleItemView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PlaceDetailsActivity.class);
                 intent.putExtra("result", results);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
-                context.startActivity(intent);
+                Pair[] pairs=new Pair[1];
+                pairs[0] =new Pair<View, String>(holder.placeIV, "imageTRMap");
+                //pairs[1] =new Pair<View, String>(holder.name, "textTRMap");
+                ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation((Activity) context,pairs);
+                context.startActivity(intent, options.toBundle());
             }
         });
     }

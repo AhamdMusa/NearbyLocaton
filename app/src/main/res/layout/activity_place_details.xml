@@ -22,6 +22,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
+                android:transitionName="imageTRMap"
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="5dp"
@@ -45,12 +46,11 @@
                         android:id="@+id/textViewName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/background_gradian"
                         android:gravity="left"
                         android:padding="10dp"
+                        android:transitionName="textTRMap"
                         android:text="Place Name"
                         android:textAlignment="center"
-                        android:textColor="#fff"
                         android:textSize="18sp" />
 
                 </androidx.cardview.widget.CardView>
@@ -71,7 +71,6 @@
                         android:id="@+id/linearLayoutRating"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/background_gradian"
                         android:orientation="horizontal"
                         android:paddingLeft="2dp"
                         android:paddingTop="5dp"
@@ -87,7 +86,6 @@
                             android:layout_marginRight="5dp"
                             android:padding="5dp"
                             android:text="5"
-                            android:textColor="#fff"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
@@ -100,7 +98,6 @@
                             android:layout_marginLeft="8dp"
                             android:isIndicator="true"
                             android:numStars="5"
-                            android:progressTint="#fff"
                             android:rating="5"
                             android:stepSize="0.1" />
 
@@ -124,17 +121,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/background_gradian"
                         android:padding="5dp"
                         android:text="Place Address"
                         android:textAlignment="center"
-                        android:textColor="#fff"
                         android:textSize="14sp" />
 
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -149,15 +144,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/background_gradian"
                         android:padding="5dp"
                         android:text="phoneNumber"
                         android:textAlignment="center"
-                        android:textColor="#fff"
                         android:textSize="14sp" />
 
                 </androidx.cardview.widget.CardView>
-            </LinearLayout>
+            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,7 +165,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/background_gradian"
                         android:orientation="horizontal"
                         android:paddingLeft="2dp"
                         android:paddingTop="5dp"
@@ -180,25 +172,17 @@
                         android:paddingBottom="5dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
+                            android:textAlignment="center"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:padding="5dp"
                             android:text="Availability: "
-                            android:textColor="#fff"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:id="@+id/addressTV"/>
 
-                        <TextView
-                            android:id="@+id/textViewAvailability"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="2"
-                            android:padding="5dp"
-                            android:text=""
-                            android:textColor="#fff"
-                            android:textSize="15sp" />
+
 
                     </LinearLayout>
 
@@ -225,35 +209,31 @@
 
                         <LinearLayout
                             android:id="@+id/linearLayoutShowOnMap"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
                             <ImageView
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
-                                android:src="@drawable/location"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Show Map"
-                                android:layout_marginTop="10dp"
-                                android:textColor="#000"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
+                                android:src="@drawable/world"/>
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/lightGrayLine"
-                                android:layout_marginTop="10dp"/>
-                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:background="@color/lightGrayLine"/>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="View your location on map"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@color/darkgray"/>
-
+                                android:gravity="center_vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Show in Map"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
 
 
@@ -266,37 +246,31 @@
 
                         <LinearLayout
                             android:id="@+id/linearLayoutShowDistanceOnMap"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
                             android:gravity="center"
-                            android:orientation="vertical">
-
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
                             <ImageView
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
-                                android:src="@drawable/compass" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Direction"
-                                android:layout_marginTop="10dp"
-                                android:textColor="#000"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
+                                android:src="@drawable/road"/>
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/lightGrayLine"
-                                android:layout_marginTop="10dp"/>
-                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:background="@color/lightGrayLine"/>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="View direction on map"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@color/darkgray"/>
-
+                                android:gravity="center_vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Direction"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
 
 

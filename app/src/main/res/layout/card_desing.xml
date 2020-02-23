@@ -3,22 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
+        android:id="@+id/typeCard"
         android:layout_width="match_parent"
         android:layout_height="105dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
             <ImageView
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:id="@+id/cardicon"
+                android:transitionName="imageTR"
                 android:src="@drawable/hospital"/>
             <TextView
                 android:id="@+id/cardtitle"
                 android:layout_marginTop="5dp"
+                android:transitionName="textTR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Hospital"
