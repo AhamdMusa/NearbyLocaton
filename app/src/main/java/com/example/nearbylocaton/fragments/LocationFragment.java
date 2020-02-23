@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -13,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -40,12 +42,18 @@ import java.util.Locale;
  */
 public class LocationFragment extends Fragment {
 
+    //Shared Preference
+    private Context context;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
     private FusedLocationProviderClient mFusedLocationClient;
     LocationManager lm;
     LocationManager locationManager;
     private GoogleMap mMap;
 
-    double lat, lng;
+
+    public double lat, lng;
 
     String longitude, latitude;
 
@@ -66,12 +74,21 @@ public class LocationFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_location, container, false);
+
+        //Init Shared Preference
+        sharedPreferences = context.getSharedPreferences("location_data",Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         textViewAddress = view.findViewById(R.id.address);
         textViewCity = view.findViewById(R.id.city);
@@ -140,12 +157,18 @@ public class LocationFragment extends Fragment {
                         lng = location.getLongitude();
                         textViewLatitude.setText(String.valueOf(lat));
                         textViewLongitude.setText(String.valueOf(lng));
-                        NearByFragment fragment = new NearByFragment();
+
+                        editor.putFloat("lat", (float) lat).apply();
+                        editor.putFloat("lng", (float) lng).apply();
+
+
+                  /*      NearByFragment fragment = new NearByFragment();
                         Bundle bundle = new Bundle();
                         bundle.putDouble("lat", lat);
                         bundle.putDouble("lng", lng);
                         fragment.setArguments(bundle);
-
+                        Toast.makeText(getContext(), ""+lat, Toast.LENGTH_SHORT).show();
+*/
                         getAddress();
 
                     } else {
@@ -174,11 +197,11 @@ public class LocationFragment extends Fragment {
         @Override
         public void onLocationChanged(Location loc) {
 
-            longitude = String.valueOf(loc.getLongitude());
-            latitude = String.valueOf(+loc.getLatitude());
+            //longitude = String.valueOf(loc.getLongitude());
+            //latitude = String.valueOf(+loc.getLatitude());
 
-            lat = loc.getLatitude();
-            lng = loc.getLongitude();
+            //lat = loc.getLatitude();
+           //lng = loc.getLongitude();
         }
 
         @Override

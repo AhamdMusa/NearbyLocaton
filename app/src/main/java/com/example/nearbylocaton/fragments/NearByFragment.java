@@ -1,11 +1,18 @@
 package com.example.nearbylocaton.fragments;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -13,12 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -31,6 +40,11 @@ import com.example.nearbylocaton.activity.MainActivity;
 import com.example.nearbylocaton.adapter.DataPass;
 import com.example.nearbylocaton.adapter.TypeAdapter;
 import com.example.nearbylocaton.constants.CardItems;
+import com.example.nearbylocaton.models.MyPlaces;
+import com.example.nearbylocaton.webApi.GoogleApiService;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,33 +54,52 @@ import java.util.List;
  */
 public class NearByFragment extends Fragment {
 
-
-    private ImageView imageViewSearch;
-    private Spinner spinner_nearby_choices;
+    //Shared Preference
     private Context context;
+    private SharedPreferences sharedPreferences;
+
+    ProgressDialog progressDialog;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+    LocationManager lm;
+    LocationManager locationManager;
+
+    private double lat;
+    private double lng;
+    private String placeType = "";
+    private GoogleApiService googleApiService;
+    private MyPlaces myPlaces;
+
+
+    private Spinner spinner_nearby_choices;
     private RecyclerView productRV;
     private List<CardItems> products;
     private TypeAdapter productAdapter;
     private CardView singleItemView;
     private MainActivity mainActivity;
-    double lat;
-    double lng;
 
+    public NearByFragment() {
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_near_by, container, false);
 
+        //Init Shared Preference
+        sharedPreferences = context.getSharedPreferences("location_data",Context.MODE_PRIVATE);
+
+        //locationService();
+
         spinner_nearby_choices = view.findViewById(R.id.spinner_nearby_choices);
         singleItemView = view.findViewById(R.id.singleItemView);
         productRV = view.findViewById(R.id.nearbymeRV);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            lat = bundle.getDouble("lat");
-            lng= bundle.getDouble("lng");
-            Toast.makeText(context, ""+lat+lng, Toast.LENGTH_SHORT).show();
-        }
 
         init();
 
@@ -80,6 +113,9 @@ public class NearByFragment extends Fragment {
                 if (position == 0) {
                     //Toast.makeText(getContext(), "Please select valid type", Toast.LENGTH_SHORT).show();
                 } else {
+                    lat = sharedPreferences.getFloat("lat",0f);
+                    lng = sharedPreferences.getFloat("lng",0f);
+
                     //---------------------On Clicke next Frag te dite hobe-----------------------//
                     String placeName = spinner_nearby_choices.getSelectedItem().toString();
                     Intent intent = new Intent(getActivity(), LocationRV.class);
@@ -91,7 +127,7 @@ public class NearByFragment extends Fragment {
                     intent.putExtras(bundle);
                     startActivity(intent);
 
-
+                    Toast.makeText(getContext(), "Goooooot LatLng "+lat, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -153,6 +189,92 @@ public class NearByFragment extends Fragment {
 
         productAdapter.notifyDataSetChanged();
     }
+
+    //Code for Location
+/*    private void locationService() {
+
+        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Please wait while fetching data from GPS .......");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+            final LocationListener locationListener = new NearByFragment.MyLocationListener();
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                progressDialog.dismiss();
+
+                return;
+            }
+
+            progressDialog.dismiss();
+
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+
+                    if (location != null) {
+
+                        lat = location.getLatitude();
+                        lng = location.getLongitude();
+
+                    } else {
+                        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+                            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                return;
+                            }
+
+                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+                        } else if (lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+
+                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, locationListener);
+                        }
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(getContext(), "GPS off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class MyLocationListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location loc) {
+
+            *//*longitude = loc.getLongitude();
+            latitude = loc.getLatitude();*//*
+
+            lat = loc.getLatitude();
+            lng = loc.getLongitude();
+
+           // Toast.makeText(getContext(), ""+lat, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+    }*/
 
 
 }
