@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
@@ -26,8 +27,13 @@ import java.util.List;
 
 public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.ViewHolder> {
 
+    //Shared Preference
+    private SharedPreferences sharedPreferences;
+
     private Context context;
     private List<CardItems> products;
+    private double lat;
+    private double lng;
 
 
 
@@ -41,6 +47,8 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.ViewHolder> {
     public TypeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.card_desing, parent,false);
+
+
 
 
         return new ViewHolder(view);
@@ -58,11 +66,19 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.ViewHolder> {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+
+                lat = sharedPreferences.getFloat("lat",0f);
+                lng = sharedPreferences.getFloat("lng",0f);
+
                 String placeName = cardItem.getTitle();
                 Intent intent = new Intent(context, LocationRV.class);
                 intent.putExtra("placeName",placeName);
+
                 Bundle bundle=new Bundle();
+                bundle.putDouble("lat",lat);
+                bundle.putDouble("lng",lng);
                 bundle.putInt("icon",cardItem.getIcon());
+
                 intent.putExtras(bundle);
                 Pair[] pairs=new Pair[1];
                 pairs[0] =new Pair<View, String>(holder.productImageIV, "imageTR");
@@ -90,8 +106,10 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.ViewHolder> {
             productName= view.findViewById(R.id.cardtitle);
             cardView=view.findViewById(R.id.typeCard);
 
-        }
+            //Init Shared Preference
+            sharedPreferences = context.getSharedPreferences("location_data",context.MODE_PRIVATE);
 
+        }
 
     }
 }

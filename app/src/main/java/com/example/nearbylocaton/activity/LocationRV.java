@@ -37,18 +37,14 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LocationRV extends AppCompatActivity {
+
+    //gdfgfgdfg
 
 
     private static LocationRV instance;
@@ -72,8 +68,10 @@ public class LocationRV extends AppCompatActivity {
     LocationManager lm;
     LocationManager locationManager;
 
-    double lat=23.7521850724 ;
-    double lng=90.3925169004;
+    /*double lat=23.7521850724 ;
+    double lng=90.3925169004;*/
+    double lat;
+    double lng;
     private String placeType = "";
     private GoogleApiService googleApiService;
     private MyPlaces myPlaces;
@@ -85,11 +83,14 @@ public class LocationRV extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_rv);
 
+        //locationService();
+
         instance=this;
         icon=findViewById(R.id.imageView2);
         itemName=findViewById(R.id.textView);
         recyclerViewPlaces=findViewById(R.id.recyclerViewPlaces);
         linearLayoutShowOnMap = findViewById(R.id.linearLayoutShowOnMap);
+
         Intent intent=getIntent();
         placeType=intent.getStringExtra("placeName");
         Bundle bundle=this.getIntent().getExtras();
@@ -118,7 +119,7 @@ public class LocationRV extends AppCompatActivity {
 
 
 
-
+/*
   private void locationService() {
 
         lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -205,6 +206,7 @@ public class LocationRV extends AppCompatActivity {
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
     }
+    */
 
     private String buildUrl(double latitude, double longitude, String API_KEY) {
         StringBuilder urlString = new StringBuilder("api/place/search/json?");
@@ -213,7 +215,7 @@ public class LocationRV extends AppCompatActivity {
         urlString.append(latitude);
         urlString.append(",");
         urlString.append(longitude);
-        urlString.append("&radius=1000"); // places between 5 kilometer
+        urlString.append("&radius=10000"); // places between 5 kilometer
         urlString.append("&types=" + placeType.toLowerCase().replaceAll(" ", "_"));
         urlString.append("&sensor=false&key=" + API_KEY);
 
@@ -262,7 +264,10 @@ public class LocationRV extends AppCompatActivity {
                 }
             });
         }
-        else Toast.makeText(this, "what", Toast.LENGTH_SHORT).show();
+        else {
+           // Toast.makeText(this, "lat lng not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, ""+latitude, Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
