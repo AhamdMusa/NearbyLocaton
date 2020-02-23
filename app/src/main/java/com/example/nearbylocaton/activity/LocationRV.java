@@ -72,8 +72,8 @@ public class LocationRV extends AppCompatActivity {
     LocationManager lm;
     LocationManager locationManager;
 
-    double lat=23.7521850724 ;
-    double lng=90.3925169004;
+    double lat;
+    double lng;
     private String placeType = "";
     private GoogleApiService googleApiService;
     private MyPlaces myPlaces;
@@ -100,7 +100,7 @@ public class LocationRV extends AppCompatActivity {
         icon.setImageResource(iconint);
         itemName.setText(placeType+"s");
         // Toast.makeText(this, ""+placeType, Toast.LENGTH_SHORT).show();
-        //locationService();
+        locationService();
         getNearbyPlaces();
 
 
