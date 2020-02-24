@@ -31,7 +31,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.nearbylocaton.R;
+import com.example.nearbylocaton.activity.PlaceDetailsActivity;
 import com.example.nearbylocaton.activity.ShowMeOnMap;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -121,7 +123,10 @@ public class LocationFragment extends Fragment {
         linearLayoutViewMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moveToNewActivity();
+                Intent i = new Intent(getActivity(), ShowMeOnMap.class);
+                startActivity(i);
+                getActivity().overridePendingTransition(0, 0);
+
             }
         });
 
@@ -279,9 +284,7 @@ public class LocationFragment extends Fragment {
     }
     private void moveToNewActivity () {
 
-        Intent i = new Intent(getActivity(), ShowMeOnMap.class);
-        startActivity(i);
-        getActivity().overridePendingTransition(0, 0);
+
 
     }
 

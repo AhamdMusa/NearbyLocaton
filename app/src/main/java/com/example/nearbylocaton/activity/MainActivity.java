@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -118,7 +119,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new NearByFragment()).commit();
                 break;
             case R.id.nav_share:
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                String shareSub ="NearbyLocation";
+                String shareBody= "NearbyLocation App can find anything anywhere (almost true)";
+                intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                intent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                startActivity(Intent.createChooser(intent,"Share It By"));
                 break;
             case R.id.nav_faq:
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
