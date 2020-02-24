@@ -2,6 +2,7 @@ package com.example.nearbylocaton.fragments;
 
 
 import android.Manifest;
+import android.animation.Animator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,6 +73,7 @@ public class LocationFragment extends Fragment {
     private TextView textViewCountry;
     private TextView textViewDivision;
     private LinearLayout linearLayoutViewMe;
+    private ImageView dot;
 
 
     public LocationFragment() {
@@ -100,6 +106,14 @@ public class LocationFragment extends Fragment {
         textViewPostalCode = view.findViewById(R.id.postalCode);
         linearLayoutViewMe = view.findViewById(R.id.linearLayoutViewMe);
         textViewBigText = view.findViewById(R.id.bigTaxt);
+        dot=view.findViewById(R.id.dot_dot);
+        new Progerss().execute();
+
+
+
+
+
+
 
 
         locationService();
@@ -117,6 +131,10 @@ public class LocationFragment extends Fragment {
 
         return view;
     }
+
+
+
+
 
     private void locationService() {
 
@@ -266,4 +284,33 @@ public class LocationFragment extends Fragment {
         getActivity().overridePendingTransition(0, 0);
 
     }
+
+class Progerss extends AsyncTask<Void,Integer,Void>{
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+        for (int i=1; i<=10;i++){
+            try {
+                 Thread.sleep(3000);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            publishProgress(i);
+
+        }
+        return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+        Animation animator =AnimationUtils.loadAnimation(context,R.anim.bounce);
+        dot.startAnimation(animator);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+}
 }

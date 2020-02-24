@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.models.Photos;
 import com.example.nearbylocaton.models.Results;
@@ -98,6 +99,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                 intent.putExtra("lng", lng);
                 intent.putExtra("type", "map");
                 startActivity(intent);
+                Animatoo.animateSlideRight(PlaceDetailsActivity.this);
             }
         });
 
@@ -110,6 +112,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                 intent.putExtra("lng", lng);
                 intent.putExtra("type", "distance");
                 startActivity(intent);
+                Animatoo.animateSlideLeft(PlaceDetailsActivity.this);
             }
         });
     }
@@ -123,5 +126,10 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         textViewAddress = findViewById(R.id.textViewAddress);
         textViewAvailability = findViewById(R.id.addressTV);
         ratingBar = findViewById(R.id.ratingBar);
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Animatoo.animateSlideLeft(PlaceDetailsActivity.this);
     }
 }

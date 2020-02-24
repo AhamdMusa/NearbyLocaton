@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.adapter.PlaceRecyclerViewAdapter;
 import com.example.nearbylocaton.constants.PlacesConstant;
@@ -112,6 +113,7 @@ public class LocationRV extends AppCompatActivity {
                 PlacesConstant.results = myPlaces.getResults();
                 Intent intent = new Intent(LocationRV.this, ShowPlacesOnMapActivity.class);
                 startActivity(intent);
+                Animatoo.animateSlideUp(LocationRV.this);
             }
         });
 

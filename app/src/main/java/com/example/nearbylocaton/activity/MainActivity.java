@@ -110,11 +110,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.viewpager,
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
                         new LocationFragment()).commit();
                 break;
             case R.id.nav_favorite:
-                getSupportFragmentManager().beginTransaction().replace(R.id.viewpager,
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
                         new NearByFragment()).commit();
                 break;
             case R.id.nav_share:

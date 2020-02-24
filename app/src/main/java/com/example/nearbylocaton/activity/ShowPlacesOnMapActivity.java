@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.constants.PlacesConstant;
 import com.example.nearbylocaton.models.Results;
@@ -36,6 +37,12 @@ public class ShowPlacesOnMapActivity extends FragmentActivity implements OnMapRe
         Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_LONG).show();
     }
 
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Animatoo.animateSlideDown(ShowPlacesOnMapActivity.this); //fire the slide left animation
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         for (int i = 0; i < results.size(); i++) {

@@ -59,4 +59,6 @@ dependencies {
 
     //----------BY MUSA_______________//
     implementation 'com.karumi:dexter:5.0.0'
+    implementation "com.airbnb.android:lottie:3.4.0"
+    implementation 'com.github.mohammadatif:Animatoo:master'
 }

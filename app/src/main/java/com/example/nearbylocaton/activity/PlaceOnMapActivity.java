@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.nearbylocaton.DirectionsJSONParser;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.models.Location;
@@ -370,5 +371,10 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
                 Log.d("onPostExecute", "without Polylines drawn");
             }
         }
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Animatoo.animateSlideRight(PlaceOnMapActivity.this);
     }
 }

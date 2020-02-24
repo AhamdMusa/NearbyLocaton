@@ -8,7 +8,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -19,13 +18,23 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/world_map"
-                    android:gravity="center">
-
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@drawable/world_map"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:rotationY="180"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_more_vert_black_24dp"
+                            android:tint="#DB3225"
+                            android:layout_alignParentBottom="true"
+                            android:id="@+id/dot_dot"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
                     <TextView
                         android:id="@+id/bigTaxt"
                         android:layout_width="match_parent"
@@ -36,8 +45,10 @@
                         android:textAllCaps="true"
                         android:textColor="#000000"
                         android:textSize="50dp" />
+                        </LinearLayout>
+                    </RelativeLayout>
 
-                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -385,6 +396,7 @@
 
 
                 <androidx.cardview.widget.CardView
+                    android:layout_marginTop="3dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -396,9 +408,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:src="@drawable/location_world"/>
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/location_world"
+                            android:tint="#7f8fa6"/>
                         <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -414,7 +427,7 @@
                             android:layout_height="wrap_content"
                             android:text="Show Me in Map"
                             android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
                         </LinearLayout>
 
 
@@ -426,9 +439,8 @@
 
 
         </LinearLayout>
-
-
     </ScrollView>
+
 
 
 </LinearLayout>
