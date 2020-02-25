@@ -30,6 +30,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private LinearLayout linearLayoutRating;
     private LinearLayout linearLayoutShowOnMap;
     private LinearLayout linearLayoutShowDistanceOnMap;
+    private ImageView favoritButton;
+    int i=0;
 
     // variable
     private Results results;
@@ -57,6 +59,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
 
 
         imageView = findViewById(R.id.imageView);
+        favoritButton=findViewById(R.id.favorite_button);
 
         try {
             // get photo
@@ -113,6 +116,19 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                 intent.putExtra("type", "distance");
                 startActivity(intent);
                 Animatoo.animateSlideLeft(PlaceDetailsActivity.this);
+            }
+        });
+
+        favoritButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 i=i+1;
+                 if (i%2!=0) {
+                     favoritButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+                 }
+                 else if (i%2==0) {
+                     favoritButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                 }
             }
         });
     }

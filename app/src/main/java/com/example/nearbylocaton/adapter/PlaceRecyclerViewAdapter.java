@@ -10,8 +10,10 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,6 +86,8 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
         public CardView singleItemView;
         ImageView placeIV;
         public ImageView placeImageView;
+        public ImageButton favorite;
+        public RatingBar ratingBar;
 
         public ViewHolder(View view) {
             super(view);
@@ -92,6 +96,7 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
             placeIV = view.findViewById(R.id.placeImageView);
             singleItemView = view.findViewById(R.id.singleItemView);
             placeImageView = view.findViewById(R.id.placeImageView);
+            ratingBar=view.findViewById(R.id.ratingBar);
         }
 
         public void bind(Results results) {
@@ -112,7 +117,8 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
                         .into(placeImageView);
             }
             name.setText(results.getName());
-            address.setText(results.getVicinity());
+            address.setText(results.getRating());
+
         }
     }
 }
