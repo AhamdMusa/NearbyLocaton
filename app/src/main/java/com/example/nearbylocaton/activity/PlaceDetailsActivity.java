@@ -1,5 +1,7 @@
 package com.example.nearbylocaton.activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.example.nearbylocaton.DataBase.DatabaseOpenHelper;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.models.Photos;
 import com.example.nearbylocaton.models.Results;
@@ -30,8 +33,11 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private LinearLayout linearLayoutRating;
     private LinearLayout linearLayoutShowOnMap;
     private LinearLayout linearLayoutShowDistanceOnMap;
+    //--------------FOR FAVORITE DATABASE----------//
     private ImageView favoritButton;
-    int i=0;
+    private DatabaseOpenHelper helper;
+    private String photoUrl;
+    int i=0,databaseID;
 
     // variable
     private Results results;
@@ -46,6 +52,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         init();
 
         Bundle bundle = getIntent().getExtras();
+        helper=new DatabaseOpenHelper(this);
 
         if (bundle != null) {
             results = (Results) bundle.getSerializable("result");
@@ -64,7 +71,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         try {
             // get photo
             photos = results.getPhotos()[0];
-            String photoUrl = String.format("https://maps.googleapis.com/maps/api/place/photo?maxwidth=%s&photoreference=%s&key=%s", 400, photos.getPhoto_reference(), getResources().getString(R.string.google_maps_key));
+            photoUrl= String.format("https://maps.googleapis.com/maps/api/place/photo?maxwidth=%s&photoreference=%s&key=%s", 400, photos.getPhoto_reference(), getResources().getString(R.string.google_maps_key));
             Log.d("photoUrl", photoUrl);
             Picasso
                     .get()
@@ -125,9 +132,24 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                  i=i+1;
                  if (i%2!=0) {
                      favoritButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+                     //--------------FOR FAVORITE DATABASE----------//
+                     String placrName=results.getName();
+                     double latitute=lat;
+                     double longitude= lng;
+                     String rating=results.getRating();
+                     String time=results.getOpeningHours().toString();
+                     String icon=photoUrl;
+                     long id=helper.addPlace(placrName,lat,lng,rating,time,icon);
+                     databaseID= (int) id;
+                     Toast.makeText(PlaceDetailsActivity.this, "Added to Favorite", Toast.LENGTH_SHORT).show();
+
+
                  }
                  else if (i%2==0) {
                      favoritButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                 helper.deleteData(databaseID);
+                     Toast.makeText(PlaceDetailsActivity.this, "Removed from Favorite", Toast.LENGTH_SHORT).show();
+
                  }
             }
         });
@@ -148,4 +170,9 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         Animatoo.animateSlideLeft(PlaceDetailsActivity.this);
     }
+
+
+
+
+
 }

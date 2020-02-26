@@ -18,13 +18,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static String COL_LAT = "Lat";
     public static String COL_LNG = "Lng";           // DataType is int..?
     public static String COL_RATING = "Rating";  // DataType is long..?
-    public static String COL_OPENTIME = "Open Time";  // DataType is long..?
+    public static String COL_OPENTIME = "Open_Time";  // DataType is long..?
     public static String COL_ICON = "Icon";           // DataType is int..?
 
     private  SQLiteDatabase database;
 
     public static  String create_table = "create table "+TABLE_NAME+
-            " (Id integer primary key, PlaceName text, Catagory text, Amount integer, Time text, Date text, Icon integer)";
+            " (Id integer primary key, PlaceName text, Lat double, Lng double, Rating text, Open_Time text, Icon integer)";
     public DatabaseOpenHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
@@ -59,13 +59,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         getWritableDatabase().delete(TABLE_NAME,"Id=?",new String[]{String.valueOf(id)});
     }
 
-    public long addPlace(String placrName, double lat,double lng,String rating,String time,int icon ){
+    public long addPlace(String placrName, double latitute,double longitude,String rating,String time,String icon ){
 
         openDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_NAME,placrName);
-        values.put(COL_LAT,lat);
-        values.put(COL_LNG,lng);
+        values.put(COL_LAT,latitute);
+        values.put(COL_LNG,longitude);
         values.put(COL_RATING,rating);
         values.put(COL_OPENTIME,time);
         values.put(COL_ICON,icon);

@@ -15,10 +15,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.nearbylocaton.R;
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentTransaction ft;
     //-----for DrawerLayout--------//
     private DrawerLayout drawer;
+    private ImageView dot;
 
 
     @Override
@@ -52,28 +58,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewPager = findViewById(R.id.viewpager);
         frameLayout= findViewById(R.id.mainFrame);
         drawer = findViewById(R.id.drawer_layout);
+        dot=findViewById(R.id.dot_dot);
+        new Progerss().execute();
 
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager()));
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new MessageFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_message);
-        }*/
+
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
+
         init();
+
+          dot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
 
 
     }
@@ -152,5 +160,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+    class Progerss extends AsyncTask<Void,Integer,Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            for (int i=1; i<=10;i++){
+                try {
+                    Thread.sleep(3000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                publishProgress(i);
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            Animation animator = AnimationUtils.loadAnimation(MainActivity.this,R.anim.bounce);
+            dot.startAnimation(animator);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+    }
+
 }
 

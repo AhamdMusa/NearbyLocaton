@@ -3,6 +3,7 @@ package com.example.nearbylocaton.fragments;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +19,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +37,7 @@ import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.nearbylocaton.R;
+import com.example.nearbylocaton.activity.MainActivity;
 import com.example.nearbylocaton.activity.PlaceDetailsActivity;
 import com.example.nearbylocaton.activity.ShowMeOnMap;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -75,7 +80,6 @@ public class LocationFragment extends Fragment {
     private TextView textViewCountry;
     private TextView textViewDivision;
     private LinearLayout linearLayoutViewMe;
-    private ImageView dot;
 
 
     public LocationFragment() {
@@ -92,10 +96,10 @@ public class LocationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_location, container, false);
+        final View view = inflater.inflate(R.layout.fragment_location, container, false);
 
         //Init Shared Preference
-        sharedPreferences = context.getSharedPreferences("location_data",Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("location_data", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         textViewAddress = view.findViewById(R.id.address);
@@ -108,11 +112,6 @@ public class LocationFragment extends Fragment {
         textViewPostalCode = view.findViewById(R.id.postalCode);
         linearLayoutViewMe = view.findViewById(R.id.linearLayoutViewMe);
         textViewBigText = view.findViewById(R.id.bigTaxt);
-        dot=view.findViewById(R.id.dot_dot);
-        new Progerss().execute();
-
-
-
 
 
 
@@ -136,9 +135,6 @@ public class LocationFragment extends Fragment {
 
         return view;
     }
-
-
-
 
 
     private void locationService() {
@@ -224,7 +220,7 @@ public class LocationFragment extends Fragment {
             //latitude = String.valueOf(+loc.getLatitude());
 
             //lat = loc.getLatitude();
-           //lng = loc.getLongitude();
+            //lng = loc.getLongitude();
         }
 
         @Override
@@ -274,7 +270,6 @@ public class LocationFragment extends Fragment {
                 textViewBigText.setText(city);   //-----------MUSA-------------------------------/
 
 
-
                 //Toast.makeText(getContext(), , Toast.LENGTH_SHORT).show();
                 Log.d("LocationFragment", addresses.get(0).toString());
             }
@@ -282,38 +277,10 @@ public class LocationFragment extends Fragment {
             e.printStackTrace();
         }
     }
-    private void moveToNewActivity () {
 
+    private void moveToNewActivity() {
 
 
     }
 
-class Progerss extends AsyncTask<Void,Integer,Void>{
-
-    @Override
-    protected Void doInBackground(Void... voids) {
-        for (int i=1; i<=10;i++){
-            try {
-                 Thread.sleep(3000);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            publishProgress(i);
-
-        }
-        return null;
-    }
-
-    @Override
-    protected void onProgressUpdate(Integer... values) {
-        super.onProgressUpdate(values);
-        Animation animator =AnimationUtils.loadAnimation(context,R.anim.bounce);
-        dot.startAnimation(animator);
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-}
 }
