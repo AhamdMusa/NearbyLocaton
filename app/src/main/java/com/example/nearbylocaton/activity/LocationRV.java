@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +77,7 @@ public class LocationRV extends AppCompatActivity {
     private String placeType = "";
     private GoogleApiService googleApiService;
     private MyPlaces myPlaces;
+    private RatingBar ratingBar;
 
 
 
@@ -91,6 +93,7 @@ public class LocationRV extends AppCompatActivity {
         itemName=findViewById(R.id.textView);
         recyclerViewPlaces=findViewById(R.id.recyclerViewPlaces);
         linearLayoutShowOnMap = findViewById(R.id.linearLayoutShowOnMap);
+
 
         Intent intent=getIntent();
         placeType=intent.getStringExtra("placeName");

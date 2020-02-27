@@ -1,7 +1,12 @@
 package com.example.nearbylocaton.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,30 +17,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nearbylocaton.DataBase.DatabaseOpenHelper;
+import com.example.nearbylocaton.activity.PlaceDetailsActivity;
+import com.example.nearbylocaton.dataBase.DatabaseOpenHelper;
 import com.example.nearbylocaton.R;
-import com.example.nearbylocaton.models.MyPlaces;
 import com.example.nearbylocaton.models.Photos;
 import com.example.nearbylocaton.models.Results;
+import com.example.nearbylocaton.pogos.Favorite;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class FavoritesRVAdapter  {
-
-    //-------------------------------------Have To Do All Work-------------------------------------//
-
-/*extends RecyclerView.Adapter<FavoritesRVAdapter.ViewHolder>
+public class FavoritesRVAdapter extends RecyclerView.Adapter<FavoritesRVAdapter.ViewHolder>{
     private Photos photos;
     private DatabaseOpenHelper helper;
     private Context context;
-    private ArrayList<MyPlaces> myPlaces;
+    private ArrayList<Favorite> favorites;
 
-    public FavoritesRVAdapter(Context context) {
+    private double latitute, longitude;
+
+    public FavoritesRVAdapter( Context context, ArrayList<Favorite> favorites) {
+
+
         this.context = context;
+        this.favorites = favorites;
     }
 
     @NonNull
@@ -46,15 +54,34 @@ public class FavoritesRVAdapter  {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final Results results=new Results();
+        Favorite favorite=favorites.get(position);
+        holder.name.setText(favorite.getPlacename());
+        holder.bind(favorite);
+        holder.singleItemView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PlaceDetailsActivity.class);
+                intent.putExtra("result", results);
+                intent.putExtra("lat", latitute);
+                intent.putExtra("lng", longitude);
+              //  Pair[] pairs=new Pair[1];
+              //  pairs[0] =new Pair<View, String>(holder.placeIV, "imageTRMap");
+                //pairs[1] =new Pair<View, String>(holder.name, "textTRMap");
+               // ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation((Activity) context,pairs);
+               // context.startActivity(intent, options.toBundle());
+                context.startActivity(intent);
+            }
+        });
 
-        final MyPlaces dataAll = myPlaces.get(position);
-        holder.name.setText(dataAll.g);
+
     }
 
     @Override
     public int getItemCount() {
-        return myPlaces.size();
+        return favorites.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,39 +89,28 @@ public class FavoritesRVAdapter  {
         public CardView singleItemView;
         ImageView placeIV;
         public ImageView placeImageView;
-        public ImageButton favorite;
         public RatingBar ratingBar;
 
         public ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.textViewPlaceName);
             address = view.findViewById(R.id.textViewAddress);
-            placeIV = view.findViewById(R.id.placeImageView);
             singleItemView = view.findViewById(R.id.singleItemView);
             placeImageView = view.findViewById(R.id.placeImageView);
-            ratingBar=view.findViewById(R.id.ratingBar);
+            ratingBar=view.findViewById(R.id.rating_on_singleplace);
        }
 
-    public void bind(Results results) {
-        try {
-            // get photo
-            photos = results.getPhotos()[0];
-            String photoUrl = String.format("https://maps.googleapis.com/maps/api/place/photo?maxwidth=%s&photoreference=%s&key=%s", 400, photos.getPhoto_reference(), context.getResources().getString(R.string.google_maps_key));
-            Log.d("photoUrl", photoUrl);
-            Picasso
-                    .get()
-                    .load(photoUrl)
+    public void bind(Favorite favorite) {
+
+           String photoURL=favorite.getIconURL();
+            Picasso.get()
+                    .load(photoURL)
+                    .error(R.drawable.moon)
                     .into(placeImageView);
-        } catch (Exception e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-            Picasso
-                    .get()
-                    .load(R.drawable.photo)
-                    .into(placeImageView);
-        }
-        name.setText(data.getName());
-        address.setText(results.getRating());
+
+
+        ratingBar.setRating(Float.parseFloat(favorite.getRating()));
 
     }
-}*/
+}
 }

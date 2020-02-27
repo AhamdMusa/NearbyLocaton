@@ -1,7 +1,5 @@
 package com.example.nearbylocaton.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,8 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
-import com.example.nearbylocaton.DataBase.DatabaseOpenHelper;
+import com.example.nearbylocaton.dataBase.DatabaseOpenHelper;
 import com.example.nearbylocaton.R;
+import com.example.nearbylocaton.models.OpeningHours;
 import com.example.nearbylocaton.models.Photos;
 import com.example.nearbylocaton.models.Results;
 import com.squareup.picasso.Picasso;
@@ -137,7 +136,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                      double latitute=lat;
                      double longitude= lng;
                      String rating=results.getRating();
-                     String time=results.getOpeningHours().toString();
+                     String time= String.valueOf(results.getOpeningHours());
                      String icon=photoUrl;
                      long id=helper.addPlace(placrName,lat,lng,rating,time,icon);
                      databaseID= (int) id;

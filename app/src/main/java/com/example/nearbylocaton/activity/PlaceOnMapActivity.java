@@ -1,14 +1,18 @@
 package com.example.nearbylocaton.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
@@ -59,6 +63,7 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
     private GoogleMap googleMap;
     private String type;
     private GoogleApiService apiServices;
+    private Button mapTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,12 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mapTypes=findViewById(R.id.typeButton);
+
+
+
+
 
         Bundle bundle = getIntent().getExtras();
 
@@ -84,6 +95,17 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
+    private void onClicks() {
+        mapTypes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMapTypeSelectorDialog();
+            }
+        });
+
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
@@ -92,6 +114,7 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
         } else {
             showOnMap();
         }
+        onClicks();
     }
 
     private void showOnMap() {
@@ -106,8 +129,10 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
 
         this.googleMap.getUiSettings().setCompassEnabled(true);
         this.googleMap.getUiSettings().setZoomControlsEnabled(true);
+        this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(pos)); // move the camera to the position
         this.googleMap.animateCamera(CameraUpdateFactory.zoomTo(16.5f));
+        showMapTypeSelectorDialog();
     }
 
     private void showDistance() {
@@ -148,67 +173,7 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
 
-        //For Direction Polyline
 
-     /*   MarkerOptions markerFkip = new MarkerOptions()
-                .position(currentPosition)
-                .title("FKIP");
-        MarkerOptions markerMonas = new MarkerOptions()
-                .position(destinationPosition)
-                .title("Monas");
-
-        googleMap.addMarker(markerFkip);
-        googleMap.addMarker(markerMonas);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(destinationPosition, 11.6f));
-
-        String fromFKIP = String.valueOf(currentPosition.latitude) + "," + String.valueOf(currentPosition.longitude);
-        String toMonas = String.valueOf(destinationPosition.latitude) + "," + String.valueOf(destinationPosition.longitude);
-
-        GoogleApiService apiServices = RetrofitBuilder.apiServices(this);
-        apiServices =
-        apiServices.getDirection(fromFKIP, toMonas, getString(R.string.api_key))
-                .enqueue(new Callback<DirectionResponses>() {
-                    @Override
-                    public void onResponse(@NonNull Call<re> call, @NonNull Response<DirectionResponses> response) {
-                        drawPolyline(response);
-                        Log.d("bisa dong oke", response.message());
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<DirectionResponses> call, @NonNull Throwable t) {
-                        Log.e("anjir error", t.getLocalizedMessage());
-                    }
-                });
-
-    }
-
-    private void drawPolyline(@NonNull Response<DirectionResponses> response) {
-        if (response.body() != null) {
-            String shape = response.body().getRoutes().get(0).getOverviewPolyline().getPoints();
-            PolylineOptions polyline = new PolylineOptions()
-                    .addAll(PolyUtil.decode(shape))
-                    .width(8f)
-                    .color(Color.RED);
-            map.addPolyline(polyline);
-        }
-    }
-
-    private interface ApiServices {
-        @GET("maps/api/directions/json")
-        Call<DirectionResponses> getDirection(@Query("origin") String origin,
-                                              @Query("destination") String destination,
-                                              @Query("key") String apiKey);
-    }
-
-    private static class RetrofitClient {
-        static ApiServices apiServices(Context context) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl(context.getResources().getString(R.string.base_url))
-                    .build();
-
-            return retrofit.create(ApiServices.class);
-        }*/
     }
 
     private String getDirectionsUrl(LatLng origin, LatLng dest) {
@@ -376,5 +341,48 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
     public void onBackPressed(){
         super.onBackPressed();
         Animatoo.animateSlideRight(PlaceOnMapActivity.this);
+    }
+    private static final CharSequence[] MAP_TYPE_ITEMS =
+            {"Road Map", "Hybrid", "Satellite", "Terrain"};
+
+    private void showMapTypeSelectorDialog() {
+        // Prepare the dialog by setting up a Builder.
+        final String fDialogTitle = "Select Map Type";
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(fDialogTitle);
+
+        // Find the current map type to pre-check the item representing the current state.
+        int checkItem = googleMap.getMapType() - 1;
+
+        // Add an OnClickListener to the dialog, so that the selection will be handled.
+        builder.setSingleChoiceItems(MAP_TYPE_ITEMS,checkItem,
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Locally create a finalised object.
+
+                        // Perform an action depending on which item was selected.
+                        switch (item) {
+                            case 1:
+                                googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                                break;
+                            case 2:
+                                googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                                break;
+                            case 3:
+                                googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                                break;
+                            default:
+                                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                        }
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+        // Build the dialog and show it.
+        AlertDialog fMapTypeDialog = builder.create();
+        fMapTypeDialog.setCanceledOnTouchOutside(true);
+        fMapTypeDialog.show();
     }
 }

@@ -96,7 +96,7 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
             placeIV = view.findViewById(R.id.placeImageView);
             singleItemView = view.findViewById(R.id.singleItemView);
             placeImageView = view.findViewById(R.id.placeImageView);
-            ratingBar=view.findViewById(R.id.ratingBar);
+            ratingBar=view.findViewById(R.id.rating_on_singleplace);
         }
 
         public void bind(Results results) {
@@ -117,7 +117,10 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
                         .into(placeImageView);
             }
             name.setText(results.getName());
-            address.setText(results.getRating());
+            Log.d("rwere",results.getRating());
+            ratingBar.setRating(Float.parseFloat(results.getRating()));
+            address.setText(results.getOpeningHours().toString());
+
 
         }
     }

@@ -24,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.nearbylocaton.R;
@@ -31,6 +32,7 @@ import com.example.nearbylocaton.adapter.DataPass;
 import com.example.nearbylocaton.adapter.TabPagerAdapter;
 import com.example.nearbylocaton.fragments.LocationFragment;
 import com.example.nearbylocaton.fragments.NearByFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //-----for DrawerLayout--------//
     private DrawerLayout drawer;
     private ImageView dot;
+    private LinearLayout traffic,speedometer,area,route;
+    private FloatingActionButton compass;
 
 
     @Override
@@ -59,6 +63,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         frameLayout= findViewById(R.id.mainFrame);
         drawer = findViewById(R.id.drawer_layout);
         dot=findViewById(R.id.dot_dot);
+        traffic=findViewById(R.id.trafficLL);
+        speedometer=findViewById(R.id.speedometerLL);
+        area=findViewById(R.id.area_measurementLL);
+        route=findViewById(R.id.routeLL);
+        compass=findViewById(R.id.fab);
         new Progerss().execute();
 
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager()));
@@ -74,16 +83,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        onCliks();
         init();
 
-          dot.setOnClickListener(new View.OnClickListener() {
+
+
+
+    }
+
+    private void onCliks() {
+        dot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawer.openDrawer(GravityCompat.START);
+               // Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
             }
         });
-
-
+        route.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+            }
+        });
+        area.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+            }
+        });
+        traffic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+            }
+        });
+        speedometer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+            }
+        });
+        compass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void init() {}
@@ -123,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new LocationFragment()).commit();
                 break;
             case R.id.nav_favorite:
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-                        new NearByFragment()).commit();
+                Intent favoriteRV = new Intent(this, FavoriteRV.class);
+                startActivity(favoriteRV);
                 break;
             case R.id.nav_share:
                 Intent intent=new Intent(Intent.ACTION_SEND);

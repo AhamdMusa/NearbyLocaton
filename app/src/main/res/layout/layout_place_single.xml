@@ -66,7 +66,7 @@
 
                     <RatingBar
                         android:layout_marginStart="5dp"
-                        android:id="@+id/rating"
+                        android:id="@+id/rating_on_singleplace"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:saveEnabled="true"

@@ -1,4 +1,4 @@
-package com.example.nearbylocaton.DataBase;
+package com.example.nearbylocaton.dataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
