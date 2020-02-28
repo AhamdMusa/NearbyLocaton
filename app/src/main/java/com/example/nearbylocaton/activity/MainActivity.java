@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         route.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
             }
         });
         area.setOnClickListener(new View.OnClickListener() {
