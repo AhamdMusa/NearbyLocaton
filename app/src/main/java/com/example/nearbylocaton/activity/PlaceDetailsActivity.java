@@ -42,6 +42,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private TextView textViewRating;
     private TextView textViewAddress;
     private TextView textViewAvailability;
+    private TextView cartime,biketime,walktime;
+    private LinearLayout call,website,share;
     private RatingBar ratingBar;
     private LinearLayout linearLayoutRating;
     private LinearLayout linearLayoutShowOnMap;
@@ -185,7 +187,13 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         textViewAddress = findViewById(R.id.textViewAddress);
         textViewAvailability = findViewById(R.id.addressTV);
         ratingBar = findViewById(R.id.ratingBar);
-    }
+        call=findViewById(R.id.makecall);
+        website=findViewById(R.id.website);
+        share=findViewById(R.id.share);
+        cartime=findViewById(R.id.cartime);
+        biketime=findViewById(R.id.biketime);
+        walktime=findViewById(R.id.walktime);
+            }
 
     @Override
     public void onBackPressed(){
@@ -225,6 +233,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                     placedetails = response.body();
                     result = placedetails.getResult();
                     String a = result.getWebsite();
+                    textViewAvailability.setText(result.getOpeningHours().getWeekdayText().toString().replace(",","\n").replace("[","")
+                            .replace("]","."));
 
                     //String a = placedetails.getResult().getName();
                     Toast.makeText(PlaceDetailsActivity.this, ""+a, Toast.LENGTH_SHORT).show();

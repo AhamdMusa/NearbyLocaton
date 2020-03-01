@@ -119,7 +119,12 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
             name.setText(results.getName());
             Log.d("rwere",results.getRating());
             ratingBar.setRating(Float.parseFloat(results.getRating()));
-            address.setText(results.getOpeningHours().toString());
+            if (results.getOpeningHours() != null) {
+                address.setText(results.getOpeningHours().getOpenNow() == false ? "Closed" : "Open");
+            } else {
+                address.setText("Not found!");
+            }
+
 
 
         }

@@ -6,28 +6,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.PlaceDetailsActivity">
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="10dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="450dp"
-        android:maxHeight="200dp"
-        android:scaleType="centerCrop"
-        android:transitionName="imageTRMap" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                android:maxWidth="450dp"
+                android:maxHeight="200dp"
+                android:scaleType="centerCrop"
+                android:transitionName="imageTRMap" />
             <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,52 +37,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="10">
-
-                <TextView
+                <LinearLayout
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
-                    android:id="@+id/textViewName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:padding="10dp"
-                    android:text="Place Name"
-                    android:textAlignment="center"
-                    android:layout_marginRight="5dp"
-                    android:textSize="18sp"
-                    android:transitionName="textTRMap" />
-            <ImageView
-                android:layout_weight="9"
-                android:id="@+id/favorite_button"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_favorite_border_black_24dp"/>
-        </LinearLayout>
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
+                    <TextView
+                        android:id="@+id/textViewName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="left"
+                        android:paddingLeft="10dp"
+                        android:text="Place Name"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:transitionName="textTRMap" />
                     <LinearLayout
                         android:gravity="center_horizontal"
                         android:id="@+id/linearLayoutRating"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="2dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="2dp"
-                        android:paddingBottom="5dp">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:textAlignment="center"
@@ -91,7 +73,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginRight="5dp"
-                            android:padding="5dp"
+                            android:paddingLeft="10dp"
                             android:text="5"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -106,63 +88,22 @@
                             android:isIndicator="true"
                             android:numStars="5"
                             android:rating="5"
-                            android:stepSize="0.1" />
+                            android:stepSize="0.1"/>
 
                     </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
+                </LinearLayout>
+            <ImageView
+                android:layout_weight="9"
+                android:id="@+id/favorite_button"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_favorite_border_black_24dp"/>
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/textViewAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="5dp"
-                        android:text="Place Address"
-                        android:textAlignment="center"
-                        android:textSize="14sp" />
-
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/phoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="5dp"
-                        android:text="phoneNumber"
-                        android:textAlignment="center"
-                        android:textSize="14sp" />
-
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
@@ -172,24 +113,100 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="5dp"                        android:gravity="center_horizontal"
                         android:orientation="horizontal"
-                        android:paddingLeft="2dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="2dp"
-                        android:paddingBottom="5dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:textAlignment="center"
+                        android:weightSum="4">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:padding="5dp"
-                            android:text="Availability: "
-                            android:textSize="14sp"
-                            android:id="@+id/addressTV"/>
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:id="@+id/linearLayoutShowOnMap"
+                            android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/world" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:text="Show on Map"/>
+                        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/linearLayoutShowDistanceOnMap"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/arrow"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="Direction"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:id="@+id/makecall"
+                        android:layout_weight="1">
+                    <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/phone_call"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="Call"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:id="@+id/website"
+                        android:layout_weight="1">
 
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/domain"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="Website"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:id="@+id/share"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/sharecolor"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="Share"/>
 
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -199,97 +216,231 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp">
-
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="left"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
                         <LinearLayout
-                            android:id="@+id/linearLayoutShowOnMap"
-                            android:orientation="vertical"
-                            android:layout_margin="10dp"
-                            android:gravity="center"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
                             <ImageView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:src="@drawable/world"/>
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="5dp"
-                                android:background="@color/lightGrayLine"/>
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Show in Map"
-                                    android:textSize="15sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/geo"
+                                android:layout_marginRight="10dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:text="Place Address"
+                            android:textSize="14sp" />
                         </LinearLayout>
+                        <TextView
+                            android:id="@+id/textViewAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="5dp"
+                            android:text="Place Address"
+                            android:textSize="14sp" />
 
 
-                    </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#dfe6e9"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp">
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="left"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
                         <LinearLayout
-                            android:id="@+id/linearLayoutShowDistanceOnMap"
-                            android:orientation="vertical"
-                            android:layout_margin="10dp"
-                            android:gravity="center"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
                             <ImageView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:src="@drawable/road"/>
-                            <View
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/clock"
+                                android:layout_marginRight="10dp"/>
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="5dp"
-                                android:background="@color/lightGrayLine"/>
-                            <LinearLayout
-                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Direction"
-                                    android:textSize="15sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:padding="5dp"
+                                android:text="Time Zon"
+                                android:textSize="14sp" />
                         </LinearLayout>
+                        <TextView
+                            android:id="@+id/addressTV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="5dp"
+                            android:text="Place Address"
+                            android:textSize="14sp" />
 
 
-                    </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                    </LinearLayout>
 
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
 
             </LinearLayout>
 
         </LinearLayout>
 
-        </RelativeLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:weightSum="3">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="#33d9b2"
+                        android:layout_weight="1"
+                        android:weightSum="3">
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/van"
+                        android:id="@+id/timetowalk"
+                        android:padding="10dp"/>
+                        <TextView
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:id="@+id/cartime"
+                            android:textColor="#f7f1e3"
+                            android:text="cartime"/>
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="#f7f1e3"
+                    android:layout_weight="1"
+                    android:weightSum="3">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/bicycle"
+                        android:id="@+id/timetodrive"
+                        android:layout_weight="1"
+                        android:padding="10dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
+                        android:layout_weight="2"
+                        android:id="@+id/biketime"
+                        android:text="cartime"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="#33d9b2"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:weightSum="3">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/footprint"
+                        android:layout_weight="1"
+                        android:id="@+id/timetobike"
+                        android:padding="10dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
+                        android:textColor="#f7f1e3"
+                        android:layout_weight="2"
+                        android:id="@+id/walktime"
+                        android:text="cartime"/>
+                </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+<androidx.cardview.widget.CardView
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/communication"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Review"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/commentsRV"/>
+
+        </LinearLayout>
 
     </ScrollView>
 
