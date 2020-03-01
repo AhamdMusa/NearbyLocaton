@@ -1,5 +1,6 @@
 package com.example.nearbylocaton.webApi;
 
+import com.example.nearbylocaton.modelplacedetails.Placedetails;
 import com.example.nearbylocaton.models.MyPlaces;
 
 import retrofit2.Call;
@@ -12,4 +13,7 @@ public interface GoogleApiService {
 
     @GET
     Call<MyPlaces> getMyNearByPlaces(@Url String url);
+
+    @GET
+    Call<Placedetails> getPlaceAllDetails(@Url String url);
 }

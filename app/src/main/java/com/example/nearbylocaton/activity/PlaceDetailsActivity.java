@@ -15,12 +15,26 @@ import android.widget.Toast;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.nearbylocaton.dataBase.DatabaseOpenHelper;
 import com.example.nearbylocaton.R;
+import com.example.nearbylocaton.modelplacedetails.Placedetails;
+import com.example.nearbylocaton.modelplacedetails.Result;
 import com.example.nearbylocaton.models.OpeningHours;
 import com.example.nearbylocaton.models.Photos;
 import com.example.nearbylocaton.models.Results;
+import com.example.nearbylocaton.webApi.GoogleApiService;
+import com.example.nearbylocaton.webApi.RetrofitBuilder;
 import com.squareup.picasso.Picasso;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PlaceDetailsActivity extends AppCompatActivity {
+
+    //---------For Place Details --------
+    private GoogleApiService googleApiService;
+    private Placedetails placedetails;
+    private Result result;
+    private String placeid="";
 
     private ImageView imageView;
     private Photos photos;
@@ -152,6 +166,14 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                  }
             }
         });
+
+        // ---------------- PlaceDetails API Calling here calling here --------------------
+
+        placeid = results.getPlace_id();
+        Toast.makeText(this, "" + placeid, Toast.LENGTH_SHORT).show();
+
+        getPlaceDetailsAll();
+
     }
 
     private void init() {
@@ -164,14 +186,59 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         textViewAvailability = findViewById(R.id.addressTV);
         ratingBar = findViewById(R.id.ratingBar);
     }
+
     @Override
     public void onBackPressed(){
         super.onBackPressed();
         Animatoo.animateSlideLeft(PlaceDetailsActivity.this);
     }
 
+   // ---------Start METHOD  For Place details API -----------
 
+    private String buildUrl(String place_id) {
+        StringBuilder stringBuilder = new StringBuilder("api/place/details/json?");
+        stringBuilder.append("place_id=");
+        stringBuilder.append(place_id);
+        stringBuilder.append("&fields=address_component,adr_address,formatted_address,geometry,icon,name,permanently_closed,photo,place_id,plus_code,type,url,utc_offset,vicinity,formatted_phone_number,international_phone_number,opening_hours,website,price_level,rating,review,user_ratings_total");
+        stringBuilder.append("&key=AIzaSyB9MxxJBmzLHdfsMEZSdV0vORR_MRwirPI");
 
+        return stringBuilder.toString();
 
+    }
 
+    private void getPlaceDetailsAll() {
+
+        if (placeid != null) {
+
+            String url = buildUrl(placeid);
+            Log.d("finalURL", url);
+
+            googleApiService = RetrofitBuilder.builder().create(GoogleApiService.class);
+
+            Call<Placedetails> call = googleApiService.getPlaceAllDetails(url);
+            call.enqueue(new Callback<Placedetails>() {
+                @Override
+                public void onResponse(Call<Placedetails> call, Response<Placedetails> response) {
+
+                    Log.d("abcde", response.body().getStatus());
+
+                    placedetails = response.body();
+                    result = placedetails.getResult();
+                    String a = result.getWebsite();
+
+                    //String a = placedetails.getResult().getName();
+                    Toast.makeText(PlaceDetailsActivity.this, ""+a, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Call<Placedetails> call, Throwable t) {
+                    Toast.makeText(PlaceDetailsActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            Toast.makeText(PlaceDetailsActivity.this, "Place Id Not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+    // ---------Start METHOD  For Place details API -----------
 }
