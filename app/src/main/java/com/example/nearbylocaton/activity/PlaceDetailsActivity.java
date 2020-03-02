@@ -83,9 +83,9 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             lng = bundle.getDouble("lng");
             //Toast.makeText(this, String.valueOf(results.getPhotos()[0].getPhoto_reference()), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Got Nothing!!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        Toast.makeText(this, "Got Nothing!!", Toast.LENGTH_SHORT).show();
+        return;
+    }
 
 
         imageView = findViewById(R.id.imageView);
@@ -217,7 +217,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         stringBuilder.append("place_id=");
         stringBuilder.append(place_id);
         stringBuilder.append("&fields=address_component,adr_address,formatted_address,geometry,icon,name,permanently_closed,photo,place_id,plus_code,type,url,utc_offset,vicinity,formatted_phone_number,international_phone_number,opening_hours,website,price_level,rating,review,user_ratings_total");
-        stringBuilder.append("&key=AIzaSyB9MxxJBmzLHdfsMEZSdV0vORR_MRwirPI");
+        stringBuilder.append("&key=AIzaSyAAA41TquXF2wjMM5xtLs9KQQS9TkGD1Fw");
 
         return stringBuilder.toString();
 
@@ -247,6 +247,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
 
                     //String a = placedetails.getResult().getName();
                     Toast.makeText(PlaceDetailsActivity.this, ""+a, Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override
@@ -258,12 +259,12 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         } else {
             Toast.makeText(PlaceDetailsActivity.this, "Place Id Not found", Toast.LENGTH_SHORT).show();
         }
-        reviewAdapter=new ReviewAdapter(this);
-        commentsRV.setLayoutManager(new LinearLayoutManager(this));
+
+       /* reviewAdapter=new ReviewAdapter(PlaceDetailsActivity.this);
+        commentsRV.setLayoutManager(new LinearLayoutManager(PlaceDetailsActivity.this));
         commentsRV.setItemAnimator(new DefaultItemAnimator());
         commentsRV.setAdapter(reviewAdapter);
-        reviewAdapter.notifyDataSetChanged();
-
+        reviewAdapter.notifyDataSetChanged();*/
 
     }
     // ---------Start METHOD  For Place details API -----------

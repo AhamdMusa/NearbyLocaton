@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageView dot;
     private LinearLayout traffic,speedometer,area,route;
     private FloatingActionButton compass;
+    private ShowMeOnMap showMeOnMap;
 
 
     @Override
@@ -107,15 +108,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         area.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-               // Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) { // Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+
             }
         });
         traffic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(MainActivity.this, ShowMeOnMap.class);
+                intent.putExtra("type", "true");
+                startActivity(intent);
+                }
         });
         speedometer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,8 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-                        new LocationFragment()).commit();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_favorite:
                 Intent favoriteRV = new Intent(this, FavoriteRV.class);

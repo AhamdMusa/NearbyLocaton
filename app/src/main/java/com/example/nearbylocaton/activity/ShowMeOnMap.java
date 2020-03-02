@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nearbylocaton.R;
+import com.example.nearbylocaton.models.Results;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -67,6 +68,7 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        Bundle bundle = getIntent().getExtras();
 
         getDeviceLocation();
 
@@ -77,6 +79,19 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
 
         //Method for change background
         mapBackgroundDesign(mMap);
+
+        //------------------for Traffic-------------------//
+        if (bundle != null) {
+            mMap.setTrafficEnabled(true);
+           /* String type=bundle.getString("type");
+            lat = bundle.getDouble("lat");
+            lng = bundle.getDouble("lng");
+            //Toast.makeText(this, String.valueOf(results.getPhotos()[0].getPhoto_reference()), Toast.LENGTH_SHORT).show();*/
+        } else {
+            mMap.setTrafficEnabled(false);
+            return;
+        }
+
 
         //Method for Permission Request
         locationPermissionRequest();
