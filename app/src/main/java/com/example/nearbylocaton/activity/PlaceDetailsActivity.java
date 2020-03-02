@@ -139,11 +139,11 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         linearLayoutShowDistanceOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlaceDetailsActivity.this, PlaceOnMapActivity.class);
+                Intent intent = new Intent(PlaceDetailsActivity.this, DirectionActivity.class);
                 intent.putExtra("result", results);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
-                intent.putExtra("type", "distance");
+              //  intent.putExtra("type", "distance");
                 startActivity(intent);
                 Animatoo.animateSlideLeft(PlaceDetailsActivity.this);
             }

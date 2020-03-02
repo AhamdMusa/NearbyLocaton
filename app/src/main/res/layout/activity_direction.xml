@@ -7,7 +7,7 @@ android:layout_height="match_parent"
 tools:context=".activity.DirectionActivity">
 
 <FrameLayout
-    android:id="@+id/mapLayout"
+    android:id="@+id/mapDirection"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
