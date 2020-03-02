@@ -123,7 +123,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         speedometer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                Intent speedometer = new Intent(MainActivity.this, Speedometer.class);
+                startActivity(speedometer);
             }
         });
         compass.setOnClickListener(new View.OnClickListener() {
