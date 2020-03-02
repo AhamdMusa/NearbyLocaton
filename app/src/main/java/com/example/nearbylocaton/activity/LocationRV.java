@@ -143,11 +143,11 @@ public class LocationRV extends AppCompatActivity {
 
         if (lat != 0 && lng != 0) {
 
-            /*final ProgressDialog dialog = new ProgressDialog(LocationRV.this);
+            final ProgressDialog dialog = new ProgressDialog(LocationRV.this);
             dialog.setMessage("Loading...");
             dialog.setCancelable(false);
             dialog.setIndeterminate(false);
-            dialog.show();*/
+            dialog.show();
 
             String apiKey = LocationRV.this.getResources().getString(R.string.google_maps_key);
             String url = buildUrl(lat, lng, apiKey);
@@ -164,14 +164,13 @@ public class LocationRV extends AppCompatActivity {
                     myPlaces = response.body();
                     //  Log.d("MyPlaces", myPlaces.getResults().get(0).toString());
 
-                    // dialog.dismiss();
+                    dialog.dismiss();
 
                     placeRecyclerViewAdapter = new PlaceRecyclerViewAdapter(LocationRV.this, myPlaces, lat, lng);
                     recyclerViewPlaces.setLayoutManager(new LinearLayoutManager(LocationRV.this));
                     recyclerViewPlaces.setItemAnimator(new DefaultItemAnimator());
                     recyclerViewPlaces.setAdapter(placeRecyclerViewAdapter);
                     placeRecyclerViewAdapter.notifyDataSetChanged();
-                    //linearLayoutShowOnMap.setVisibility(View.VISIBLE);
                 }
 
                 @Override

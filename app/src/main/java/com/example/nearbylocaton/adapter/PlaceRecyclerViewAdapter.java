@@ -36,9 +36,6 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter<PlaceRecycler
     private MyPlaces myPlaces;
     private double lat, lng;
 
-    public PlaceRecyclerViewAdapter(Photos photos) {
-        this.photos = photos;
-    }
 
     public PlaceRecyclerViewAdapter(Context context, MyPlaces myPlaces, double lat, double lng) {
         this.context = context;

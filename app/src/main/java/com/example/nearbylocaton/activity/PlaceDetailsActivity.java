@@ -1,6 +1,9 @@
 package com.example.nearbylocaton.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.example.nearbylocaton.adapter.ReviewAdapter;
 import com.example.nearbylocaton.dataBase.DatabaseOpenHelper;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.modelplacedetails.Placedetails;
 import com.example.nearbylocaton.modelplacedetails.Result;
-import com.example.nearbylocaton.models.OpeningHours;
 import com.example.nearbylocaton.models.Photos;
 import com.example.nearbylocaton.models.Results;
 import com.example.nearbylocaton.webApi.GoogleApiService;
@@ -48,6 +51,9 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private LinearLayout linearLayoutRating;
     private LinearLayout linearLayoutShowOnMap;
     private LinearLayout linearLayoutShowDistanceOnMap;
+
+    private ReviewAdapter reviewAdapter;
+    private RecyclerView commentsRV;
     //--------------FOR FAVORITE DATABASE----------//
     private ImageView favoritButton;
     private DatabaseOpenHelper helper;
@@ -57,6 +63,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     // variable
     private Results results;
     private double lat, lng;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +201,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         cartime=findViewById(R.id.cartime);
         biketime=findViewById(R.id.biketime);
         walktime=findViewById(R.id.walktime);
+        commentsRV=findViewById(R.id.commentsRV);
             }
 
     @Override
@@ -249,6 +258,13 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         } else {
             Toast.makeText(PlaceDetailsActivity.this, "Place Id Not found", Toast.LENGTH_SHORT).show();
         }
+        reviewAdapter=new ReviewAdapter(this);
+        commentsRV.setLayoutManager(new LinearLayoutManager(this));
+        commentsRV.setItemAnimator(new DefaultItemAnimator());
+        commentsRV.setAdapter(reviewAdapter);
+        reviewAdapter.notifyDataSetChanged();
+
+
     }
     // ---------Start METHOD  For Place details API -----------
 }

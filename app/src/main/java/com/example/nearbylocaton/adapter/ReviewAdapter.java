@@ -4,24 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.modelplacedetails.Placedetails;
-import com.example.nearbylocaton.modelplacedetails.Result;
+import com.example.nearbylocaton.modelplacedetails.Review;
+import com.squareup.picasso.Picasso;
 
-public class ReviewRV extends RecyclerView.Adapter<ReviewRV.ViewHolder> {
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
     private Context context;
     private Placedetails placedetails;
 
-    public ReviewRV(Context context) {
+    public ReviewAdapter(Context context) {
         this.context = context;
     }
 
@@ -34,14 +34,19 @@ public class ReviewRV extends RecyclerView.Adapter<ReviewRV.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-       // Result result=placedetails.getResult().get(position);
+       Review review =placedetails.getResult().getReviews().get(position);
+       holder.gideName.setText(review.getAuthorName());
+       holder.bind(review);
+       holder.review.setText(review.getRating().toString());
+       holder.ratingBar.setRating(review.getRating());
+       if(review.getText()!=null){
+       holder.reviewTV.setText(review.getText()); }
 
         }
 
     @Override
     public int getItemCount() {
-        return 0;
-        //placedetails.getResult().size();
+        return placedetails.getResult().getReviews().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -57,6 +62,22 @@ public class ReviewRV extends RecyclerView.Adapter<ReviewRV.ViewHolder> {
             reviewTV=itemView.findViewById(R.id.reviewText);
 
 
+        }
+
+        public void bind (Review review){
+            try {
+                String photoURL=review.getProfilePhotoUrl();
+                Picasso
+                        .get()
+                        .load(photoURL)
+                        .into(gidePic);
+            }catch (Exception e) {
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Picasso
+                        .get()
+                        .load(R.drawable.photo)
+                        .into(gidePic);
+            }
         }
     }
 }
