@@ -1,48 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CompassActivity"
-    android:gravity="center"
     android:orientation="vertical"
-    android:background="#000">
+    android:background="#000"
+    android:gravity="center">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="N"
+        android:textColor="#f6e58d"
+        android:layout_marginBottom="20dp"
         android:textSize="30dp"
-        android:textStyle="bold"
-        android:textColor="#f6e58d"/>
+        android:textStyle="bold"/>
     <RelativeLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="280dp"
+        android:layout_height="280dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/compass_home"/>
+        <ImageView
+            android:id="@+id/main_image_hands"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/compass_hand"
+            android:layout_centerInParent="true"/>
 
-    <ImageView
-        android:id="@+id/main_image_dial"
-        android:layout_width="320dp"
-        android:layout_height="320dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/compass_home" />
-
-    <ImageView
-        android:id="@+id/main_image_hands"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:layout_centerInParent="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/compass_hand" />
     </RelativeLayout>
-
     <TextView
-        android:layout_marginTop="20dp"
-        android:id="@+id/sotw_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/sotw_label"
+        android:textColor="#f6e58d"
+        android:layout_marginTop="20dp"
         android:textSize="30dp"
-        android:textStyle="bold"
-        android:textColor="#f6e58d"/>
+        android:textStyle="bold"/>
+
 
 </LinearLayout>
