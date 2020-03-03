@@ -46,8 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //-----for DrawerLayout--------//
     private DrawerLayout drawer;
     private LottieAnimationView dot;
-    private LinearLayout traffic,speedometer,area,route;
-    private FloatingActionButton compass;
+    private LinearLayout traffic,speedometer,area,route,compass;
     private ShowMeOnMap showMeOnMap;
 
 

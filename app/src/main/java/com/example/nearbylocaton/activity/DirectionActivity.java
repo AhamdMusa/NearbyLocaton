@@ -123,6 +123,18 @@ public class DirectionActivity extends AppCompatActivity implements OnMapReadyCa
         longitude = lng;
 
         //Shahbag
+//----------------not working??!!!!!!!-----------------//
+       /* Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+            results = (Results) bundle.getSerializable("result");
+            latBus = bundle.getDouble("lat");
+            lng = bundle.getDouble("lng");
+            type = bundle.getString("type");
+            location2 = results.getGeometry().getLocation();
+
+            //Toast.makeText(this, String.valueOf(lat), Toast.LENGTH_SHORT).show();
+        }*/
         latBus =23.738298;
         lonBus =90.395855;
 

@@ -97,7 +97,7 @@ public class NearByFragment extends Fragment {
 
         //locationService();
 
-        spinner_nearby_choices = view.findViewById(R.id.spinner_nearby_choices);
+        //spinner_nearby_choices = view.findViewById(R.id.spinner_nearby_choices);
         singleItemView = view.findViewById(R.id.singleItemView);
         productRV = view.findViewById(R.id.nearbymeRV);
 
@@ -105,7 +105,7 @@ public class NearByFragment extends Fragment {
 
         getAllProduct();
 
-        spinner_nearby_choices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*spinner_nearby_choices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("ResourceType")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -137,7 +137,7 @@ public class NearByFragment extends Fragment {
 
             }
         });
-
+*/
 
         return view;
     }
