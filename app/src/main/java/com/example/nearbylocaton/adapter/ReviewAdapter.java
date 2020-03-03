@@ -1,6 +1,7 @@
 package com.example.nearbylocaton.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nearbylocaton.R;
+import com.example.nearbylocaton.activity.PlaceDetailsActivity;
 import com.example.nearbylocaton.modelplacedetails.Placedetails;
 import com.example.nearbylocaton.modelplacedetails.Review;
+import com.example.nearbylocaton.webApi.GoogleApiService;
+import com.example.nearbylocaton.webApi.RetrofitBuilder;
 import com.squareup.picasso.Picasso;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
     private Context context;
@@ -46,7 +54,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
+
         return placedetails.getResult().getReviews().size();
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -79,5 +89,15 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                         .into(gidePic);
             }
         }
+    }
+    private String buildUrl(String place_id) {
+        StringBuilder stringBuilder = new StringBuilder("api/place/details/json?");
+        stringBuilder.append("place_id=");
+        stringBuilder.append(place_id);
+        stringBuilder.append("&fields=address_component,adr_address,formatted_address,geometry,icon,name,permanently_closed,photo,place_id,plus_code,type,url,utc_offset,vicinity,formatted_phone_number,international_phone_number,opening_hours,website,price_level,rating,review,user_ratings_total");
+        stringBuilder.append("&key=AIzaSyAAA41TquXF2wjMM5xtLs9KQQS9TkGD1Fw");
+
+        return stringBuilder.toString();
+
     }
 }

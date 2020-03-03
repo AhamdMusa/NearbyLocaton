@@ -60,6 +60,9 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private String photoUrl;
     int i=0,databaseID;
 
+    //----------------for place share----------//
+    private String placeToShare;
+
     // variable
     private Results results;
     private double lat, lng;
@@ -177,6 +180,32 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             }
         });
 
+        website.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_WEB_SEARCH);
+                intent.setType("text/plain");
+                String shareSub ="NearbyLocation";
+                String shareBody= placeToShare;
+                intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                intent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                startActivity(Intent.createChooser(intent,"Share It By"));
+            }
+        });
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                String shareSub ="A Place Location by NearbyLocation";
+                String shareBody= placeToShare;
+                intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                intent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                startActivity(Intent.createChooser(intent,"Share It By"));
+            }
+        });
+
         // ---------------- PlaceDetails API Calling here calling here --------------------
 
         placeid = results.getPlace_id();
@@ -242,11 +271,12 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                     placedetails = response.body();
                     result = placedetails.getResult();
                     String a = result.getWebsite();
+                    placeToShare=result.getFormattedAddress();
                     textViewAvailability.setText(result.getOpeningHours().getWeekdayText().toString().replace(",","\n").replace("[","")
                             .replace("]","."));
 
-                    //String a = placedetails.getResult().getName();
-                    Toast.makeText(PlaceDetailsActivity.this, ""+a, Toast.LENGTH_SHORT).show();
+                    String name = placedetails.getResult().getName();
+                    Toast.makeText(PlaceDetailsActivity.this, ""+name, Toast.LENGTH_SHORT).show();
 
                 }
 

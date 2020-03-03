@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         speedometer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent speedometer = new Intent(MainActivity.this, Speedometer.class);
+                Intent speedometer = new Intent(MainActivity.this, SpeedometerActivity.class);
                 startActivity(speedometer);
             }
         });
