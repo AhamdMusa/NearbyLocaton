@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DirectionActivity"></activity>
+        <activity android:name=".activity.CompassActivity"></activity>
+        <activity android:name=".activity.DirectionActivity" />
         <activity android:name=".activity.Speedometer" />
         <activity android:name=".activity.FavoriteRV" />
         <activity android:name=".activity.LocationRV" />

@@ -1,7 +1,6 @@
 package com.example.nearbylocaton.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -14,7 +13,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,10 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.nearbylocaton.R;
-import com.example.nearbylocaton.adapter.DataPass;
 import com.example.nearbylocaton.adapter.TabPagerAdapter;
-import com.example.nearbylocaton.fragments.LocationFragment;
-import com.example.nearbylocaton.fragments.NearByFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -130,7 +125,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         compass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                Intent compass = new Intent(MainActivity.this, CompassActivity.class);
+                startActivity(compass);
             }
         });
     }
