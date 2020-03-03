@@ -25,14 +25,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/colorPrimary">
-        <ImageView
-            android:rotationY="180"
-            android:layout_width="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_more_vert_black_24dp"
-            android:tint="#DB3225"
-            android:layout_marginBottom="3dp"
-            android:id="@+id/dot_dot"/>
+            android:id="@+id/dot_dot"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/animdata"
+            app:lottie_autoPlay="true"/>
+
             <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"

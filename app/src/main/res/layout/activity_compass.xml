@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="N"
-        android:textColor="#f6e58d"
+        android:textColor="#ff3300"
         android:layout_marginBottom="20dp"
         android:textSize="30dp"
         android:textStyle="bold"/>
