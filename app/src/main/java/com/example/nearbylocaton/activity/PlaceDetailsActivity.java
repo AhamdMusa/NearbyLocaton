@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -183,14 +184,19 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         website.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.setType("text/plain");
-                String shareSub ="NearbyLocation";
-                String shareBody= placeToShare;
-                intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
-                intent.putExtra(Intent.EXTRA_TEXT,shareBody);
-                startActivity(Intent.createChooser(intent,"Share It By"));
-            }
+                placeToShare= result.getWebsite();
+                if (placeToShare!=null){
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                    intent.setType("text/plain");
+                    String shareSub ="A Place Location by NearbyLocation";
+                    String shareBody= placeToShare;
+                    intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                    intent.putExtra(Intent.EXTRA_TEXT,shareBody);
+
+                startActivity(Intent.createChooser(intent,"Open with"));}
+                else {
+                    Toast.makeText(PlaceDetailsActivity.this, "No Website found.", Toast.LENGTH_SHORT).show();
+            }}
         });
 
         share.setOnClickListener(new View.OnClickListener() {
