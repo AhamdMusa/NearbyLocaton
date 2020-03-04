@@ -1,6 +1,7 @@
 package com.example.nearbylocaton.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -8,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Address;
@@ -22,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.models.Results;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -55,6 +56,8 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
 
     //--------musa--------------//
     private DrawerLayout drawer;
+    private ImageView mapTypes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_show_me);
 
         deviceLocationTV = findViewById(R.id.deviceLocationTV);
+        mapTypes=findViewById(R.id.typeButtononMe);
 
         deviceLocationTV.setText("Look!! I am here");
 
@@ -73,8 +77,18 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
         fragmentTransaction.commit();
 
         mapFragment.getMapAsync((OnMapReadyCallback) ShowMeOnMap.this);
+        onClicks();
 
 
+    }
+
+    private void onClicks() {
+        mapTypes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMapTypeSelectorDialog();
+            }
+        });
 
     }
 
@@ -106,6 +120,7 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
             mMap.setTrafficEnabled(false);
             return;
         }
+
 
 
         //Method for Permission Request
@@ -198,6 +213,50 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    private static final CharSequence[] MAP_TYPE_ITEMS =
+            {"Road Map", "Hybrid", "Satellite", "Terrain"};
+
+    private void showMapTypeSelectorDialog() {
+        // Prepare the dialog by setting up a Builder.
+        final String fDialogTitle = "Select Map Type";
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(fDialogTitle);
+
+        // Find the current map type to pre-check the item representing the current state.
+        int checkItem = mMap.getMapType() - 1;
+
+        // Add an OnClickListener to the dialog, so that the selection will be handled.
+        builder.setSingleChoiceItems(MAP_TYPE_ITEMS,checkItem,
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Locally create a finalised object.
+
+                        // Perform an action depending on which item was selected.
+                        switch (item) {
+                            case 1:
+                                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                                break;
+                            case 2:
+                                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                                break;
+                            case 3:
+                                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                                break;
+                            default:
+                                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                        }
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+        // Build the dialog and show it.
+        AlertDialog fMapTypeDialog = builder.create();
+        fMapTypeDialog.setCanceledOnTouchOutside(true);
+        fMapTypeDialog.show();
+    }
+
     private void mapBackgroundDesign(GoogleMap mMap) {
         try {
             boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.changemapdesignapi));
@@ -209,5 +268,9 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
         } catch (Resources.NotFoundException e) {
             Log.e("MapsActivity", "Can not find style. Error: ", e);
         }
+    }
+
+    public void backMe(View view) {
+   super.onBackPressed();
     }
 }

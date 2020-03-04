@@ -81,7 +81,7 @@
             android:layout_gravity="bottom"
             app:fabAlignmentMode="end"
             app:fabCradleRoundedCornerRadius="10dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             tools:ignore="BottomAppBar">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -165,6 +165,7 @@
                     android:orientation="vertical"
                     android:gravity="bottom">
                     <ImageView
+                        android:transitionName="compassTR"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:src="@drawable/compass_home"/>

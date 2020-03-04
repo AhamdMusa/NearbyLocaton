@@ -21,6 +21,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/compass_home"/>
         <ImageView
+            android:transitionName="compassTR"
             android:id="@+id/main_image_hands"
             android:layout_width="200dp"
             android:layout_height="200dp"

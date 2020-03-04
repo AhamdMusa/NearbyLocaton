@@ -3,7 +3,9 @@ package com.example.nearbylocaton.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -35,6 +38,8 @@ public class ShowPlacesOnMapActivity extends FragmentActivity implements OnMapRe
 
         results = PlacesConstant.results;
         Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_LONG).show();
+
+
     }
 
 
@@ -46,6 +51,9 @@ public class ShowPlacesOnMapActivity extends FragmentActivity implements OnMapRe
     @Override
     public void onMapReady(GoogleMap googleMap) {
         for (int i = 0; i < results.size(); i++) {
+            //Method for change background
+            mapBackgroundDesign(googleMap);
+
             MarkerOptions markerOptions = new MarkerOptions();
             Results googlePlace = results.get(i);
             double lat = Double.parseDouble(googlePlace.getGeometry().getLocation().getLat());
@@ -64,6 +72,18 @@ public class ShowPlacesOnMapActivity extends FragmentActivity implements OnMapRe
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
             googleMap.getUiSettings().setCompassEnabled(true);
             googleMap.getUiSettings().setZoomControlsEnabled(true);
+        }
+    }
+    private void mapBackgroundDesign(GoogleMap mMap) {
+        try {
+            boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.changemapdesignapi));
+            if (!success) {
+                Log.e("MapsActivity", "Style Parsing Failed");
+
+            }
+
+        } catch (Resources.NotFoundException e) {
+            Log.e("MapsActivity", "Can not find style. Error: ", e);
         }
     }
 }

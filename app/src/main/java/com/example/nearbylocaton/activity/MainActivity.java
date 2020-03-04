@@ -2,6 +2,7 @@ package com.example.nearbylocaton.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -11,13 +12,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LottieAnimationView dot;
     private LinearLayout traffic,speedometer,area,route,compass;
     private ShowMeOnMap showMeOnMap;
+    private int backCount=0;
 
 
     @Override
@@ -157,10 +164,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         compass.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                Intent compass = new Intent(MainActivity.this, CompassActivity.class);
-                startActivity(compass);
+                Intent compassIntent = new Intent(MainActivity.this, CompassActivity.class);
+                Pair[] pairs=new Pair[1];
+                pairs[0] =new Pair<View, String>(compass, "compassTR");
+                //pairs[1] =new Pair<View, String>(holder.name, "textTRMap");
+                ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+                startActivity(compassIntent, options.toBundle());
             }
         });
     }
@@ -226,9 +238,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     public void onBackPressed() {
+        backCount++;
+        if (backCount==1){
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Confirm Exit........");
+            alertDialogBuilder.setMessage("Are you sure you want to exit?");
+            alertDialogBuilder.setCancelable(false);
+            alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();;
+                }
+            });
+            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog alertDialog=alertDialogBuilder.create();
+            alertDialog.show(); }
+        }
+        else {
             super.onBackPressed();
         }
     }

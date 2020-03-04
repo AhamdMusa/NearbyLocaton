@@ -1,30 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".activity.ShowMe">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.ShowMe">
 <FrameLayout
     android:id="@+id/maps"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 </FrameLayout>
-
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:textSize="16sp"
     android:text="You Are Here"
-    android:padding="5dp"
+    android:paddingLeft="20dp"
+    android:layout_marginStart="50dp"
     android:gravity="center"
     android:background="@drawable/text_bg"
     android:textColor="@color/colorPrimaryDark"
     android:id="@+id/deviceLocationTV">
-
 </TextView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:id="@+id/back_me"
+            app:lottie_loop="true"
+            android:onClick="backMe"
+            app:lottie_rawRes="@raw/backdata"
+            app:lottie_autoPlay="true"/>
+        <ImageView
+            android:id="@+id/typeButtononMe"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/map_types" />
+    </RelativeLayout>
+
+
 
 
 </RelativeLayout>

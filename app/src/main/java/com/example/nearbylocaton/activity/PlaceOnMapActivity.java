@@ -7,12 +7,14 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -63,7 +66,7 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
     private GoogleMap googleMap;
     private String type;
     private GoogleApiService apiServices;
-    private Button mapTypes;
+    private ImageView mapTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +135,10 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
         this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(pos)); // move the camera to the position
         this.googleMap.animateCamera(CameraUpdateFactory.zoomTo(16.5f));
-        showMapTypeSelectorDialog();
+
+        //Method for change background
+        mapBackgroundDesign(googleMap);
+        //showMapTypeSelectorDialog();
     }
 
     private void showDistance() {
@@ -384,5 +390,17 @@ public class PlaceOnMapActivity extends FragmentActivity implements OnMapReadyCa
         AlertDialog fMapTypeDialog = builder.create();
         fMapTypeDialog.setCanceledOnTouchOutside(true);
         fMapTypeDialog.show();
+    }
+    private void mapBackgroundDesign(GoogleMap mMap) {
+        try {
+            boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.changemapdesignapi));
+            if (!success) {
+                Log.e("MapsActivity", "Style Parsing Failed");
+
+            }
+
+        } catch (Resources.NotFoundException e) {
+            Log.e("MapsActivity", "Can not find style. Error: ", e);
+        }
     }
 }
