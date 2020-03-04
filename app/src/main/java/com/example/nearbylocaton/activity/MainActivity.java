@@ -1,6 +1,7 @@
 package com.example.nearbylocaton.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -25,11 +27,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.adapter.TabPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public TabLayout tabLayout;
@@ -39,9 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentTransaction ft;
     //-----for DrawerLayout--------//
     private DrawerLayout drawer;
-    private ImageView dot;
-    private LinearLayout traffic,speedometer,area,route;
-    private FloatingActionButton compass;
+    private LottieAnimationView dot;
+    private LinearLayout traffic,speedometer,area,route,compass;
     private ShowMeOnMap showMeOnMap;
 
 
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         area=findViewById(R.id.area_measurementLL);
         route=findViewById(R.id.routeLL);
         compass=findViewById(R.id.fab);
-        new Progerss().execute();
+       // new Progerss().execute();
 
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager()));
 
@@ -87,6 +92,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    //-----------------------for voice input,transfer it to route Activity---------------------------//
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK && data != null) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String txvResult=(result.get(0));
+                    Toast.makeText(showMeOnMap, ""+txvResult, Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+    //-----------------------for voice input,transfer it to route Activity---------------------------//
+
     private void onCliks() {
         dot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +119,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         route.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                //-----------------------for voice input,transfer it to route Activity---------------------------//
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"Speach to Text ");
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent,1);
+                } else {
+                    Toast.makeText(MainActivity.this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
+                }
+                //-----------------------for voice input,transfer it to route Activity---------------------------//
+
             }
         });
+
+
         area.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
@@ -204,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-    class Progerss extends AsyncTask<Void,Integer,Void> {
+   /* class Progerss extends AsyncTask<Void,Integer,Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -232,6 +266,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onPreExecute();
         }
     }
-
+*/
 }
 

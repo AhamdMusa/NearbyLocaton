@@ -3,6 +3,8 @@ package com.example.nearbylocaton.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
@@ -14,9 +16,13 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView;
 import com.example.nearbylocaton.R;
 import com.example.nearbylocaton.models.Results;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -47,13 +53,19 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
     private double latitude;
     private double longitude;
 
+    //--------musa--------------//
+    private DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_me);
 
         deviceLocationTV = findViewById(R.id.deviceLocationTV);
+
         deviceLocationTV.setText("Look!! I am here");
+
+
 
         SupportMapFragment mapFragment = SupportMapFragment.newInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -63,7 +75,10 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync((OnMapReadyCallback) ShowMeOnMap.this);
 
 
+
     }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

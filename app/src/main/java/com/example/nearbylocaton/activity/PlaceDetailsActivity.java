@@ -145,8 +145,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(PlaceDetailsActivity.this, DirectionActivity.class);
                 intent.putExtra("result", results);
-                intent.putExtra("lat", lat);
-                intent.putExtra("lng", lng);
+                intent.putExtra("lats", lat);
+                intent.putExtra("lngs", lng);
               //  intent.putExtra("type", "distance");
                 startActivity(intent);
                 Animatoo.animateSlideLeft(PlaceDetailsActivity.this);
