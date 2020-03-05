@@ -238,8 +238,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     public void onBackPressed() {
-        backCount++;
-        if (backCount==1){
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -261,10 +260,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             AlertDialog alertDialog=alertDialogBuilder.create();
             alertDialog.show(); }
         }
-        else {
-            super.onBackPressed();
-        }
-    }
+
+    
 
 
     @Override

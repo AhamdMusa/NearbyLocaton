@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Search Nearby</string>
     <string name="title_activity_maps">Map</string>
-    <string name="MY_API_KEY">AIzaSyAAA41TquXF2wjMM5xtLs9KQQS9TkGD1Fw</string>
+    <string name="MY_API_KEY">AIzaSyBNeCP7mOiRzuhq3eBHGdiBXoXt06fWGEo</string>
     <string name="map_direction_polyLine_api_key">AIzaSyBg8i0hgKB-G08vlQtuGyjlns1RfwzDzoE</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB9MxxJBmzLHdfsMEZSdV0vORR_MRwirPI</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBNeCP7mOiRzuhq3eBHGdiBXoXt06fWGEo</string>
+
+    <!--AIzaSyAeAzVEv3-76IucfrMgKWuRhXTc4HBUddQ (Musa)
+        AIzaSyAAA41TquXF2wjMM5xtLs9KQQS9TkGD1Fw (Moinul vai)
+        AIzaSyBg8i0hgKB-G08vlQtuGyjlns1RfwzDzoE (Moinul vai)
+        AIzaSyB9MxxJBmzLHdfsMEZSdV0vORR_MRwirPI (Bipul vai)  -->
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

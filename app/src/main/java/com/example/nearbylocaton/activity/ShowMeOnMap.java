@@ -12,6 +12,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -35,6 +37,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -96,8 +99,12 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        int height = 100;
+        int width = 100;
+
         mMap = googleMap;
         Bundle bundle = getIntent().getExtras();
+
 
         getDeviceLocation();
 
@@ -110,13 +117,15 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
         mapBackgroundDesign(mMap);
 
         //------------------for Traffic-------------------//
-        if (bundle != null) {
+        if (bundle!=null){
+            String mapType=bundle.getString("type");
+        if (mapType.equals("true")) {
             mMap.setTrafficEnabled(true);
            /* String type=bundle.getString("type");
             lat = bundle.getDouble("lat");
             lng = bundle.getDouble("lng");
             //Toast.makeText(this, String.valueOf(results.getPhotos()[0].getPhoto_reference()), Toast.LENGTH_SHORT).show();*/
-        } else {
+        }} else {
             mMap.setTrafficEnabled(false);
             return;
         }
@@ -128,7 +137,7 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
 
         mMap.setMyLocationEnabled(false);
 
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+//         mMap.getUiSettings().setZoomControlsEnabled(true);
 
     }
 
@@ -159,7 +168,13 @@ public class ShowMeOnMap extends AppCompatActivity implements OnMapReadyCallback
                         //  String phone = addresses.get(0).getPhone();
                         deviceLocationTV.setText(myLocation);
 
-                        mMap.addMarker(new MarkerOptions().position(latLng).title("My Location").snippet(myLocation));
+                        int height = 100;
+                        int width = 100;
+                        BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.airplane);
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), width, height, false);
+
+                        mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                                .title("My Location").snippet(myLocation));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                         //Toast.makeText(MainActivity.this, ""+myLocation, Toast.LENGTH_SHORT).show();
 
