@@ -65,6 +65,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0-alpha1'
     implementation 'com.github.anastr:speedviewlib:1.5.2'
     implementation 'com.github.MorochoRochaDarwin:HorizontalScrollMenu:2.0.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     //-------- For Direction Library ---------------
     implementation 'com.mcxiaoke.next:recycler:1.5.3'
